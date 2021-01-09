@@ -47,4 +47,21 @@ public class MybatisMemberDAO implements MemberDAO{
 		
 	}
 
+	@Override
+	public int duplicateCheck(String user_id) {
+		List list = sqlSessionTemplate.selectList("Member.duplicateCheck", user_id);
+		int result =list.size();
+		return result;
+	}
+
+
+//	@Override
+//	public void duplicateCheck(String user_id) {
+//		List list = sqlSessionTemplate.selectList("Member.duplicateCheck", user_id);
+//		if(list.size()>0) { // 아이디 중복
+//			throw new MemberRegistException("이미 사용중인 아이디입니다.");
+//		}
+//	}
+
+
 }

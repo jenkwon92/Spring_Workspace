@@ -10,4 +10,6 @@ public interface MemberDAO {
 	public void insert(Member member); //회원등록
 	public void update(Member member); //회원수정
 	public void delete(Member member); //회원삭제
+	
+	public int duplicateCheck(String user_id); //중복여부 체크
 }

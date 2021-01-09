@@ -10,4 +10,6 @@ public interface MemberService {
 	public void regist(Member member); //회원등록 및 기타필요사항 처리
 	public void update(Member member); //회원수정
 	public void delete(Member member); //회원삭제
+	
+	public int duplicateCheck(String user_id);
 }
