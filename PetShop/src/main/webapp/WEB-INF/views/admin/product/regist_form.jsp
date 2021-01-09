@@ -5,14 +5,6 @@
 <%@ include file="../../inc/header.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-* {
-	box-sizing: border-box;
-}
-
 input[type=text], select, textarea {
 	width: 100%;
 	padding: 12px;

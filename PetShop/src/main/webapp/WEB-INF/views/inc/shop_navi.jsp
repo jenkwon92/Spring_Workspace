@@ -23,7 +23,7 @@
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
             <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="/shop/member/registForm">Register</a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -92,7 +92,7 @@
                     <div class="header__right">
                         <div class="header__right__auth">
                             <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <a href="/shop/member/registForm">Register</a>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
