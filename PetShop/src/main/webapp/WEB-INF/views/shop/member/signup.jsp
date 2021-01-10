@@ -82,7 +82,6 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 	function id_duplicate_check(){
 		//아이디 중복검사 (비동기)
 		$('.user_id').on("propertychange change keyup paste input", function(){
-			var formData = $("#member_form").serialize(); //전부 문자열화 시킨다!!
 			
 			//console.log("keyup 테스트");	
 			var user_id = $('.user_id').val();
@@ -91,7 +90,7 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 			$.ajax({
 				type : "post",
 				url : "/shop/member/memberIdChk",
- 				data : formData,
+ 				data : data,
 				success: function(result){
  					//console.log("성공여부"+result);
 					if(result != 'fail'){
