@@ -69,67 +69,12 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 
 </style>	
 <script>
-	$(function(){
-			 id_duplicate_check();
-		
-		//회원가입 처리
-		$("input[type='button']").click(function(){
-			regist();
-		});
+function login(){
+	$('#signin_form').attr({
+		action:"/shop/member/login",
+		method:"post"
 	});
-	
-	function id_duplicate_check(){
-		//아이디 중복검사 (비동기)
-		$('.user_id').on("propertychange change keyup paste input", function(){
-			//console.log("keyup 테스트");	
-			var user_id = $('.user_id').val();
-			var data = {user_id : user_id}
-			
-			$.ajax({
-				type : "post",
-				url : "/shop/member/memberIdChk",
- 				data : data,
- 				async: false,
-				success: function(result){
- 					//console.log("성공여부"+result);
-					if(result != 'fail'){
-						$('.id_available').css("display","inline-block");
-						$('.id_unavailable').css("display", "none");				
-					} else {
-						$('.id_unavailable').css("display","inline-block");
-						$('.id_available').css("display", "none");				
-					}
-				}
-			}); // ajax 종료
-		});// function 종료
-	}
-	
-	//요청이 완료되는 시점에 로딩바를 감춘다
-	function regist(){
-		//로딩바 시작
-		$("#loader").addClass("loader"); //class 동적 적용
-		
-		//form 태그의 파라미터들을 전송할수있는 상태로 둬야  data키값에 form 자체를 넣을 수 있다.
-		var formData = $("#member_form").serialize(); //전부 문자열화 시킨다!!
-		
-		$.ajax({
-			url:"/shop/member/regist",
-			type:"post",
-			data:formData,
-			success:function(responseData){
-				//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
-				$("#loader").removeClass("loader"); //class 동적 제거
-				var json = JSON.parse(responseData);
-				if(json.result==1){
-					alert(json.msg);
-					location.href="/"; //추후 로그인 페이지로 보낼예정
-				}else{
-					alert(json.msg);
-				}
-			}
-		});
-	}
-		
+}
 </script>
 </head>
 <body>
@@ -154,7 +99,7 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 	<!-- 회원 가입 폼 시작 -->
 	<section class="product spad">
 	<div class="container" >
-      <form class="checkout__form" id="member_form">
+      <form class="checkout__form" id="signin_form">
                <div class="row" >
                    <div class="col-lg-6" style="margin:0 auto;">
                        <h5 >로그인</h5>

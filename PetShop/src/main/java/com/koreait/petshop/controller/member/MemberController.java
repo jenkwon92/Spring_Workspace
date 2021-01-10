@@ -34,10 +34,12 @@ public class MemberController {
 		return "/shop/member/thanks";
 	}
 	
-	//로그인 폼
+	//로그인 폼 (네비가져올경우 ModelAndView로 변경해야함)
 	@GetMapping("/shop/member/loginForm")
-	public String getLoinForm() {
-		return "/shop/member/signin";
+	public ModelAndView getLoinForm() {
+		
+		ModelAndView mav = new ModelAndView("/shop/member/signin");
+		return mav;
 	}
 	
 	
