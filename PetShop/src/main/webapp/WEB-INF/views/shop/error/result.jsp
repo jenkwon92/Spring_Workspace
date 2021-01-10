@@ -10,36 +10,6 @@
   padding: 16px;
   background-color: white;
 }
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 99%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-}
-
-
-select {
-	width: 100%;
-	padding: 15px;
- 	margin: 5px 0 22px 0;
- 	display: inline;
-  	border: 1px solid #e1e1e1;
-  	font-size: 14px;
-  	color: #666666;
-  	border-radius: 2px;
-}
-
-input[type=text]:focus, input[type=password]:focus ,select:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-.site-btn:hover {
-  background-color: #ddd;
-}
 </style>	
 <script>
 
@@ -52,8 +22,9 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 	<!-- 에러 출력 페이지 시작 -->
 	<section class="product spad">
 		<div class="container">
-			<h1>이용에 불편을 드려 죄송합니다</h1>
-			<%=request.getAttribute("msg") %>
+			<h3>이용에 불편을 드려 죄송합니다</h3>
+			<hr>
+			<h5><%=request.getAttribute("msg") %></h5>
 		</div>
 	</section>
 	<!-- 에러 출력 페이지 종료 -->

@@ -119,7 +119,7 @@ function login(){
 						</div>
 						<hr>
 						<div style="text-align: center">
-							<input type="button" class="site-btn" value="로그인">
+							<input type="button" class="site-btn" value="로그인" onclick="login()">
 						</div>
 					</div>
 				</div>

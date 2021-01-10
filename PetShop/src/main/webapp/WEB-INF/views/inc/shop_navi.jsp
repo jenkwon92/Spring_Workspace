@@ -22,7 +22,11 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="/shop/member/loginForm">Login</a>
+        	<%if(session.getAttribute("member")==null){ %>
+            	<a href="/shop/member/loginForm">Login</a>
+            <%}else{ %>
+            	<a href="/shop/member/logout">LogOut</a>
+        	<%} %>
             <a href="/shop/member/registForm">Register</a>
         </div>
     </div>
@@ -91,7 +95,11 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="/shop/member/loginForm">Login</a>
+                            <%if(session.getAttribute("member")==null){ %>
+            					<a href="/shop/member/loginForm">Login</a>
+            				<%}else{ %>
+            					<a href="/shop/member/logout">LogOut</a>
+        					<%} %>
                             <a href="/shop/member/registForm">Register</a>
                         </div>
                         <ul class="header__right__widget">

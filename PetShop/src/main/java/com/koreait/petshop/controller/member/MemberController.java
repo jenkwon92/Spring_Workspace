@@ -1,5 +1,8 @@
 package com.koreait.petshop.controller.member;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.koreait.petshop.exception.MailSendException;
+import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
+import com.koreait.petshop.model.common.MessageData;
 import com.koreait.petshop.model.domain.Member;
 import com.koreait.petshop.model.member.service.MemberService;
 
@@ -38,22 +43,37 @@ public class MemberController {
 	//로그인 폼 (네비가져올경우 ModelAndView로 변경해야함)
 	@GetMapping("/shop/member/loginForm")
 	public ModelAndView getLoginForm() {
-		
+		//topList 요청
 		ModelAndView mav = new ModelAndView("/shop/member/signin");
 		return mav;
 	}
 	
 	//로그인 요청 처리
 	@PostMapping(value="/shop/member/login")
-	public ModelAndView login(Member member) {
-		//db존재여부확인
+	public String login(Member member,HttpServletRequest request) {
 		
-		//존재할 경우 세션에 회원정보 담아두기
-		//존재하지않는다면 예외처리
-		return null;
+		//db존재여부확인
+		Member obj = memberService.select(member);
+		//세션에 회원정보 담아두기
+		HttpSession session=request.getSession();
+		session.setAttribute("member", obj); //현재 클라이언트 요청과 연계된 세션에 보관
+		return "redirect:/";
 	}
 	
-	
+	//로그아웃 요청 처리
+	@GetMapping(value="/shop/member/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		request.getSession().invalidate(); //세션 무효화. 세션 효력상실
+		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
+		messageData.setMsg("로그아웃 되었습니다");
+		messageData.setUrl("/");
+		
+		ModelAndView mav = new ModelAndView("/inc/shop_message");
+		mav.addObject("messageData", messageData);
+		
+		return mav;
+	}
 	
 	//아이디 중복 검사
 	@RequestMapping(value ="/shop/member/memberIdChk", method = RequestMethod.POST)
@@ -114,6 +134,16 @@ public class MemberController {
 		mav.setViewName("shop/error/result");
 		
 		//시스템 관리자에게 에러알리기
+		return mav;
+	}
+	
+	//예외 핸들러 처리 (로그인 오류)
+	@ExceptionHandler(MemberNotFoundException.class)
+	public ModelAndView handleExceptio(MemberNotFoundException e) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", e.getMessage());
+		mav.setViewName("shop/error/result");
+	
 		return mav;
 	}
 }
