@@ -28,11 +28,19 @@ public class MemberController {
 		return "/shop/member/signup";
 	}
 	
+	//회원 감사 폼
+	@RequestMapping(value="/shop/member/thanksForm")
+	public String getThanksForm() {
+		return "/shop/member/thanks";
+	}
+	
 	//로그인 폼
 	@GetMapping("/shop/member/loginForm")
 	public String getLoinForm() {
 		return "/shop/member/signin";
 	}
+	
+	
 	
 	//아이디 중복 검사
 	@RequestMapping(value ="/shop/member/memberIdChk", method = RequestMethod.POST)

@@ -13,7 +13,7 @@
 
 
 /* 내용 영역 너비 조정 영역*/
-input[type=text], input[type=password] {
+input[type=text], input[type=password] , .address_button{
   width: 99%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -32,7 +32,7 @@ select {
   	border-radius: 2px;
 }
 
-input[type=text]:focus, input[type=password]:focus ,select:focus {
+input[type=text]:focus, input[type=password]:focus ,select:focus , .address_button:focus{
   background-color: #ddd;
   outline: none;
 }
@@ -68,19 +68,22 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 }
 
 </style>	
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	
 	$(function(){
 		id_duplicate_check();
 		
-		$("input[type='button']").click(function(){
+		//회원가입 처리
+		$(".site-btn").click(function(){
 			regist();
 		});
 		
-		//회원가입 처리
+		
 	});
 	
+	/* 아이디 중복겁사(비동기) */
 	function id_duplicate_check(){
-		//아이디 중복검사 (비동기)
 		$('.user_id').on("propertychange change keyup paste input", function(){
 			
 			//console.log("keyup 테스트");	
@@ -105,8 +108,63 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 		});// function 종료
 	}
 	
+	/* 주소 API연동 */
+	function execution_addr(){
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	        	 var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    //주소 변수 문자열과 참고항목 문자열 합치기
+	                    addr += extraAddr;
+	                
+	                } else {
+	                    addr += ' ';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('zipcode').value = data.zonecode;
+               		document.getElementById('addr_1').value = addr;
+               	 	$('#addr_2').attr("readonly",false);
+                	// 커서를 상세주소 필드로 이동한다.
+               		 document.getElementById('addr_2').focus();
+	        }
+	    }).open(); 
+		
+	}
+	
 	//요청이 완료되는 시점에 로딩바를 감춘다
 	function regist(){
+		// 주소+ 상세주소 연결
+		var addr_1 = $('#addr_1').val();
+		var addr_2 = $('#addr_2').val();
+		
+		var addr= addr_1 + " "+addr_2;
+		document.getElementById('addr').value = addr;
+		
 		//로딩바 시작
 		$("#loader").addClass("loader"); //class 동적 적용
 		
@@ -117,14 +175,13 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 			url:"/shop/member/regist",
 			type:"post",
 			data:formData,
-			 async : false,
 			success:function(responseData){
 				//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
 				$("#loader").removeClass("loader"); //class 동적 제거
 				var json = JSON.parse(responseData);
 				if(json.result==1){
 					alert(json.msg);
-					location.href="/"; //추후 로그인 페이지로 보낼예정
+					location.href="/shop/member/thanksForm"; //추후 로그인 페이지로 보낼예정
 				}else{
 					alert(json.msg);
 				}
@@ -211,16 +268,25 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
                                    <input type="text" name="phone">
                                </div>
                            </div>
-                          <div class="col-md-2 col-md-2 col-sm-2" >
+                          <div class="col-md-6 col-md-6 col-sm-6" >
                                <div class="checkout__form__input">
                                    <p>우편번호 <span>*</span></p>
-                                   <input type="text" name="zipcode">
+                                   <input type="text" id="zipcode" name="zipcode" readonly="readonly">                                   
                                </div>
                            </div>
-                           <div class="col-md-10 col-md-10 col-sm-10">
+                            <div class="col-md-6 col-md-6 col-sm-6" >
+                               <div class="checkout__form__input">
+                               	<p> 　<span> </span></p>
+                                  <input type="button" class="address_button" onclick="execution_addr()" value="우편번호 검색"  >                              
+                               </div>
+                           </div>
+                                  
+                           <div class="col-md-12">
                                <div class="checkout__form__input">
                                    	<p>주소 <span>*</span></p>
-                                   	<input type="text" name="addr">
+                                   	<input type="text" id="addr_1" readonly="readonly">
+                                   	<input type="text" id="addr_2" readonly="readonly">
+                                   	<input type="hidden" id="addr" name="addr" value="">
                                	</div>
                           	 	</div>
                           	 	
