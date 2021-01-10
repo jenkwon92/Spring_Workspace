@@ -70,17 +70,20 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 </style>	
 <script>
 	$(function(){
-			 id_duplicate_check();
+		id_duplicate_check();
 		
-		//회원가입 처리
 		$("input[type='button']").click(function(){
 			regist();
 		});
+		
+		//회원가입 처리
 	});
 	
 	function id_duplicate_check(){
 		//아이디 중복검사 (비동기)
 		$('.user_id').on("propertychange change keyup paste input", function(){
+			var formData = $("#member_form").serialize(); //전부 문자열화 시킨다!!
+			
 			//console.log("keyup 테스트");	
 			var user_id = $('.user_id').val();
 			var data = {user_id : user_id}
@@ -88,8 +91,7 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 			$.ajax({
 				type : "post",
 				url : "/shop/member/memberIdChk",
- 				data : data,
- 				async: false,
+ 				data : formData,
 				success: function(result){
  					//console.log("성공여부"+result);
 					if(result != 'fail'){
@@ -116,6 +118,7 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 			url:"/shop/member/regist",
 			type:"post",
 			data:formData,
+			 async : false,
 			success:function(responseData){
 				//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
 				$("#loader").removeClass("loader"); //class 동적 제거

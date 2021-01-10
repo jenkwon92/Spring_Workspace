@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ import com.koreait.petshop.model.common.MailSender;
 import com.koreait.petshop.model.common.SecureManager;
 import com.koreait.petshop.model.domain.Member;
 import com.koreait.petshop.model.member.repository.MemberDAO;
-import com.koreait.petshop.model.member.repository.MybatisMemberDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService{

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,12 @@ public class MemberController {
 	@RequestMapping(value="/shop/member/registForm", method=RequestMethod.GET)
 	public String getRegistForm() {
 		return "/shop/member/signup";
+	}
+	
+	//로그인 폼
+	@GetMapping("/shop/member/loginForm")
+	public String getLoinForm() {
+		return "/shop/member/signin";
 	}
 	
 	//아이디 중복 검사
