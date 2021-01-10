@@ -69,7 +69,7 @@ public class MemberController {
 		messageData.setMsg("로그아웃 되었습니다");
 		messageData.setUrl("/");
 		
-		ModelAndView mav = new ModelAndView("/inc/shop_message");
+		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
 		mav.addObject("messageData", messageData);
 		
 		return mav;
