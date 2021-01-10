@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koreait.petshop.exception.MailSendException;
+import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.common.MailSender;
 import com.koreait.petshop.model.common.SecureManager;
@@ -36,9 +37,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member select() {
-		// TODO Auto-generated method stub
-		return null;
+	public Member select(Member member) throws MemberNotFoundException{
+		//비번 해시값으로 변환하여 메서드호출
+		String hash =secureManager.getSecureData(member.getPassword());
+		member.setPassword(hash); //VO에 해시값 대입
+		Member obj = memberDAO.select(member);
+		return obj;
 	}
 
 	//회원등록 및 기타필요사항 처리

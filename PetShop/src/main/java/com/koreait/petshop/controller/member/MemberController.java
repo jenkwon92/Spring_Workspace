@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,10 +37,20 @@ public class MemberController {
 	
 	//로그인 폼 (네비가져올경우 ModelAndView로 변경해야함)
 	@GetMapping("/shop/member/loginForm")
-	public ModelAndView getLoinForm() {
+	public ModelAndView getLoginForm() {
 		
 		ModelAndView mav = new ModelAndView("/shop/member/signin");
 		return mav;
+	}
+	
+	//로그인 요청 처리
+	@PostMapping(value="/shop/member/login")
+	public ModelAndView login(Member member) {
+		//db존재여부확인
+		
+		//존재할 경우 세션에 회원정보 담아두기
+		//존재하지않는다면 예외처리
+		return null;
 	}
 	
 	

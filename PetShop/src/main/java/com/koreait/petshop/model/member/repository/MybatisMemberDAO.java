@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.domain.Member;
 
@@ -23,10 +24,13 @@ public class MybatisMemberDAO implements MemberDAO{
 		return null;
 	}
 
-	@Override
-	public Member select() {
-		// TODO Auto-generated method stub
-		return null;
+	//로그인 검증
+	public Member select(Member member) throws MemberNotFoundException{
+		Member obj = sqlSessionTemplate.selectOne("Member.select", member);
+		if(obj == null) {//올바르지않은 정보로 로그인
+			throw new MemberNotFoundException("로그인 정보가 올바르지 않습니다");
+		}
+		return obj;
 	}
 
 	//회원 가입

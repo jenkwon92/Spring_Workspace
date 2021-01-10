@@ -70,16 +70,16 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 </style>	
 <script>
 function login(){
-	$('#signin_form').attr({
+	$("#login_form").attr({
 		action:"/shop/member/login",
 		method:"post"
 	});
+	$("#login_form").submit();
 }
 </script>
 </head>
 <body>
-
-	<%@ include file="./../../inc/shop_navi.jsp"%>
+<%@ include file="./../../inc/shop_navi.jsp"%>
 
 	<!-- 사이트 이동경로 시작 -->
     <div class="breadcrumb-option">
@@ -98,42 +98,39 @@ function login(){
 	
 	<!-- 회원 가입 폼 시작 -->
 	<section class="product spad">
-	<div class="container" >
-      <form class="checkout__form" id="signin_form">
-               <div class="row" >
-                   <div class="col-lg-6" style="margin:0 auto;">
-                       <h5 >로그인</h5>
-                       <div class="row">
-                       	<div class="col-lg-12">
-                       		<div class="checkout__form__input">
-                                   <p>아이디<span>*</span></p>
-                                   <input type="text" name="user_id" class="user_id">                                   
-                               </div>
-                       	</div>
-                       	
-                           <div class="col-lg-12">
-                               <div class="checkout__form__input">
-                                   <p>비밀번호<span>*</span></p>
-                                   <input type="password" name="password">
-                               </div>
-                           </div>                        	 	
-                           </div>
-                           <hr>
-                           <div style="text-align: center">
-                           <input type="button" class="site-btn" value="로그인">
-                           </div>
-                       </div>
-                   </div>
-               </form>
+		<div class="container" >
+			<form class="checkout__form" id="login_form">
+				<div class="row" >
+					<div class="col-lg-6" style="margin:0 auto;">
+						<h5 >로그인</h5>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="checkout__form__input">
+									<p>아이디<span>*</span></p>
+									<input type="text" name="user_id" class="user_id">                                   
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="checkout__form__input">
+									<p>비밀번호<span>*</span></p>
+									<input type="password" name="password">
+								</div>
+							</div>                        	 	
+						</div>
+						<hr>
+						<div style="text-align: center">
+							<input type="button" class="site-btn" value="로그인">
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
-			<div id="loader" ></div>         
-</section>
-
+		<div id="loader" ></div>         
+	</section>
 	<!-- 회원 가입 폼 종료 -->
 	
-	<%@ include file="../shopFooter.jsp"%>
-	<%@ include file="./../../inc/footer.jsp"%>
+<%@ include file="../shopFooter.jsp"%>
+<%@ include file="./../../inc/footer.jsp"%>
 
 </body>
-
 </html>
