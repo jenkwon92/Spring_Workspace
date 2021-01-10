@@ -77,7 +77,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int duplicateCheck(String user_id) {
-		return 0;
+		int result = memberDAO.duplicateCheck(user_id);
+		if(result == 0) {
+			return 0;
+		}else {
+			return 1;
+		}
 	}
 	
 	

@@ -33,7 +33,7 @@ public class MemberController {
 	public String memberIdChkPost(String user_id) throws Exception{
 			//logger.debug("memberIdChk() 진입");
 		int result= memberService.duplicateCheck(user_id);
-		logger.debug("결과 값:"+result);
+		//logger.debug("결과 값:"+result);
 		if(result ==0 ) {
 			return "success"; //중복아이디 없음
 		}else {

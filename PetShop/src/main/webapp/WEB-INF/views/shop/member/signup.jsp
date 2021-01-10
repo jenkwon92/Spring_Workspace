@@ -70,7 +70,7 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 </style>	
 <script>
 	$(function(){
-// 		id_duplicate_check();
+			 id_duplicate_check();
 		
 		//회원가입 처리
 		$("input[type='button']").click(function(){
@@ -78,7 +78,6 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 		});
 	});
 	
-	//요청이 완료되는 시점에 로딩바를 감춘다
 	function id_duplicate_check(){
 		//아이디 중복검사 (비동기)
 		$('.user_id').on("propertychange change keyup paste input", function(){
@@ -89,14 +88,23 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
 			$.ajax({
 				type : "post",
 				url : "/shop/member/memberIdChk",
-				data : data,
+ 				data : data,
+ 				async: false,
 				success: function(result){
-					console.log("성공여부"+result);
+ 					//console.log("성공여부"+result);
+					if(result != 'fail'){
+						$('.id_available').css("display","inline-block");
+						$('.id_unavailable').css("display", "none");				
+					} else {
+						$('.id_unavailable').css("display","inline-block");
+						$('.id_available').css("display", "none");				
+					}
 				}
 			}); // ajax 종료
 		});// function 종료
 	}
 	
+	//요청이 완료되는 시점에 로딩바를 감춘다
 	function regist(){
 		//로딩바 시작
 		$("#loader").addClass("loader"); //class 동적 적용
@@ -154,9 +162,9 @@ input[type=text]:focus, input[type=password]:focus ,select:focus {
                        	<div class="col-lg-12">
                        		<div class="checkout__form__input">
                                    <p>아이디<span>*</span>
+                                   </p>
                                    		<span class="id_available">사용 가능한 아이디입니다.</span>
 										<span class="id_unavailable">아이디가 이미 존재합니다.</span>
-                                   </p>
                                    <input type="text" name="user_id" class="user_id">
                                     <p>이름<span>*</span></p>
                                    <input type="text" name="name" >

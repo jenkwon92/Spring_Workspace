@@ -19,7 +19,7 @@ import com.koreait.petshop.exception.MailSendException;
 public class MailSender {
 	String host = "smtp.gmail.com";
 	String user = "silverkay92@gmail.com";
-	String password = "";
+	String password = "skinmkbeuogwbmeg";
 	Properties props = new Properties();
 	
 	public void send(String receiver, String title, String content) throws MailSendException{
