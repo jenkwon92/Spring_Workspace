@@ -52,7 +52,7 @@
                             </li>
                             <li><a href="#">회원</a>
                                 <ul class="dropdown">
-                                    <li><a href="#">목록</a></li>
+                                    <li><a href=/admin/member/list>목록</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">결제</a>

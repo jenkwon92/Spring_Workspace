@@ -15,15 +15,26 @@ import com.koreait.petshop.model.domain.Member;
 @Repository
 public class MybatisMemberDAO implements MemberDAO{
 	private static final Logger logger=LoggerFactory.getLogger(MybatisMemberDAO.class);
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	@Override
-	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+//	Shop 사용영역
+	
+	//회원 가입
+	public void insert(Member member) throws MemberRegistException{
+		int result = sqlSessionTemplate.insert("Member.insert", member);
+		if(result==0) {
+			throw new MemberRegistException("회원가입에 실패하였습니다.");
+		} 
 	}
-
+	
+	//아이디 중복 체크
+	public int duplicateCheck(String user_id) {
+		int result = sqlSessionTemplate.selectOne("Member.duplicateCheck", user_id);
+		return result;
+	}
+		
 	//로그인 검증
 	public Member select(Member member) throws MemberNotFoundException{
 		Member obj = sqlSessionTemplate.selectOne("Member.select", member);
@@ -32,15 +43,14 @@ public class MybatisMemberDAO implements MemberDAO{
 		}
 		return obj;
 	}
+	
+//Admin 사용영역
 
-	//회원 가입
-	public void insert(Member member) throws MemberRegistException{
-		int result = sqlSessionTemplate.insert("Member.insert", member);
-		if(result==0) {
-			throw new MemberRegistException("회원가입에 실패하였습니다.");
-		} 
+	//회원 목록 가져오기
+	public List selectAll() {
+		return sqlSessionTemplate.selectList("Member.selectAll");
 	}
-
+	
 	@Override
 	public void update(Member member) {
 		// TODO Auto-generated method stub
@@ -53,9 +63,5 @@ public class MybatisMemberDAO implements MemberDAO{
 		
 	}
 
-	@Override
-	public int duplicateCheck(String user_id) {
-		int result = sqlSessionTemplate.selectOne("Member.duplicateCheck", user_id);
-		return result;
-	}
+	
 }

@@ -1,5 +1,7 @@
 package com.koreait.petshop.controller.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -110,6 +112,22 @@ public class MemberController {
 		sb.append("}");
 		return sb.toString();
 	}
+	
+	// Admin페이지	
+	//회원 목록 리스트
+	@GetMapping("/admin/member/list")
+	public ModelAndView getMemberList() {
+		ModelAndView mav = new ModelAndView("admin/member/member_list");
+	
+		List memberList = memberService.selectAll();
+		mav.addObject("memberList",memberList);
+		
+		logger.debug("memberList.size()"+memberList.size());
+		
+		return mav;
+	}
+	
+	
 	
 	//예외 핸들러 처리 (가입오류)
 	@ExceptionHandler(MemberRegistException.class)
