@@ -9,4 +9,9 @@ public class AdminController {
 	public String adminMain () {
 		return "admin/main";
 	}
+	
+	@RequestMapping("/admin/contact")
+	public String adminContact() {
+		return "admin/contact/contact_list";
+	}
 }
