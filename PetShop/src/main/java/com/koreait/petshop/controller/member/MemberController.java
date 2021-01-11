@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.koreait.petshop.exception.MailSendException;
+import com.koreait.petshop.exception.MemberDeleteException;
 import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
@@ -142,8 +143,14 @@ public class MemberController {
 	
 	//회원 탈퇴
 	@GetMapping("/shop/member/mypage_delete")
-	public String delete() {
-		return "/shop/member/mypage_delete";
+	public ModelAndView delete(HttpServletRequest request) throws MemberDeleteException{
+		Member member = (Member)request.getSession().getAttribute("member");
+		String user_id = member.getUser_id();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user_id", user_id);
+		mav.setViewName("/shop/member/mypage_delete");
+		
+		return mav;
 	} 
 
 	// Admin페이지	

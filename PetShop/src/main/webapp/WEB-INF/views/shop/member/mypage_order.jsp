@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="/shop/member/mypage_cart"><i class="fa fa-home"></i> Mypage</a>
-                        <span>Home</span>
+                        <a href="/shop/member/mypage_order"><i class="fa fa-home"></i> Mypage</a>
+                        <span>My Order</span>
                     </div>
                 </div>
             </div>

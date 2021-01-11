@@ -216,7 +216,7 @@ function edit(){
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="/shop/member/mypage_cart"><i class="fa fa-home"></i> Mypage</a>
+                        <a href="/shop/member/mypage_order"><i class="fa fa-home"></i> Mypage</a>
                         <span>Profile</span>
                     </div>
                 </div>
@@ -226,113 +226,111 @@ function edit(){
     <!-- 사이트 이동경로 종료 -->
 
 
-    <!-- 왼쪽  -->
-    <section class="blog-details spad">
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-2 col-md-2">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item">
-                            <div class="section-title">
-                                <h4>My Page</h4>
-                            </div>
-                            <ul>
-                                <li><a href="/shop/member/mypage_cart">주문내역 </a></li>
-                                <li><a href="/shop/member/mypage_profile">계정관리 </a></li>
-                                <li><a href="/shop/member/mypage_delete">회원탈퇴 </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-9">
-            		<form class="checkout__form" id="member_form">
-				<div class="row" >
-					<div class="col-lg-12">
-						<h5>프로필</h5>
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="checkout__form__input">
-									<p>아이디</p>
-									<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" disabled/>
-									<p>이름</p>
-									<input type="text" name="name" class="name" value="<%=member.getName() %>" disabled/>
-								</div>
+    <!-- 프로필 폼 시작  -->
+	<section class="blog-details spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-md-2">
+					<div class="blog__sidebar">
+						<div class="blog__sidebar__item">
+							<div class="section-title">
+								<h4>My Page</h4>
 							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="checkout__form__input">
-									<p>변경하실 비밀번호<span class="final_password_ck">　비밀번호를 입력해주세요</span></p>
-									<input type="password" name="password" class="password" >
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="checkout__form__input">
-									<p>비밀번호 확인
-										<span class="pwdck_1">　비밀번호가 일치합니다.</span>
-										<span class="pwdck_2">　비밀번호가 일치하지 않습니다.</span>
-										<span class="final_pwdck_ck">　비밀번호 확인을 입력해주세요</span>
-									</p>
-									<input type="password" class="pwdCheck">
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="checkout__form__input">
-									<p>이메일 주소<span class="final_email_id_ck">　이메일 주소를 입력해주세요</span></p>
-									<input type="text" name="email_id" class="email_id" value="<%=member.getEmail_id()%>">
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="checkout__form__input">
-									<p>도메인<span class="final_email_server_ck">　도메인을 선택해주세요</span></p>
-									
-									<select name="email_server" class="email_server" value="<%=member.getEmail_server()%>">
-										<option disabled value="select">선택</option>
-										<option value="gmail.com" >gmail.com</option>
-										<option value="naver.com">naver.com</option>
-										<option value="hanmail.net">hanmail.net</option>
-										<option value="nate.com">nate.com</option>
-									
-									</select>	
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<div class="checkout__form__input">
-									<p>전화번호<span class="final_phone_ck">　전화번호를 입력해주세요</span></p>
-									<input type="text" name="phone" class="phone" value="<%=member.getPhone()%>">
-								</div>
-							</div>
-							<div class="col-md-6 col-md-6 col-sm-6" >
-								<div class="checkout__form__input">
-									<p>우편번호<span class="final_zipcode_ck">　우편번호를 입력해주세요</span></p>
-									<input type="text" id="zipcode" class="zipcode" name="zipcode" readonly="readonly" value="<%=member.getZipcode()%>">                                   
-								</div>
-							</div>
-							<div class="col-md-6 col-md-6 col-sm-6" >
-								<div class="checkout__form__input">
-									<p> 　</p>
-								<input type="button" class="address_button" onclick="execution_addr()" value="우편번호 검색"  >                              
-							</div>
+							<ul>
+								<li><a href="/shop/member/mypage_cart">주문내역 </a></li>
+								<li><a href="/shop/member/mypage_profile">계정관리 </a></li>
+								<li><a href="/shop/member/mypage_delete">회원탈퇴 </a></li>
+							</ul>
 						</div>
-						<div class="col-md-12">
-							<div class="checkout__form__input">
-								<p>주소<span class="final_addr_ck">　주소를 입력해주세요</span></p>
-								<input type="text" id="addr_1" readonly="readonly" value="">
-								<input type="text" id="addr_2" class="addr_2" readonly="readonly" value="<%=member.getAddr()%>">
-								<input type="hidden" class="addr" id="addr" name="addr" >
-							</div>
-						</div>
-					</div>
-					<hr>
-					<div style="text-align: center">
-						<input type="button" class="site-btn" id="edit" value="수정">
 					</div>
 				</div>
+				<div class="col-lg-9 col-md-9">
+					<form class="checkout__form" id="member_form">
+						<div class="row" >
+							<div class="col-lg-12">
+								<h5>프로필</h5>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="checkout__form__input">
+											<p>아이디</p>
+											<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" disabled/>
+											<p>이름</p>
+											<input type="text" name="name" class="name" value="<%=member.getName() %>" disabled/>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="checkout__form__input">
+											<p>변경하실 비밀번호<span class="final_password_ck">　비밀번호를 입력해주세요</span></p>
+											<input type="password" name="password" class="password" >
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="checkout__form__input">
+											<p>비밀번호 확인
+												<span class="pwdck_1">　비밀번호가 일치합니다.</span>
+												<span class="pwdck_2">　비밀번호가 일치하지 않습니다.</span>
+												<span class="final_pwdck_ck">　비밀번호 확인을 입력해주세요</span>
+											</p>
+											<input type="password" class="pwdCheck">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="checkout__form__input">
+											<p>이메일 주소<span class="final_email_id_ck">　이메일 주소를 입력해주세요</span></p>
+											<input type="text" name="email_id" class="email_id" value="<%=member.getEmail_id()%>">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="checkout__form__input">
+											<p>도메인<span class="final_email_server_ck">　도메인을 선택해주세요</span></p>
+											<select name="email_server" class="email_server" value="<%=member.getEmail_server()%>">
+												<option disabled value="select">선택</option>
+												<option value="gmail.com" >gmail.com</option>
+												<option value="naver.com">naver.com</option>
+												<option value="hanmail.net">hanmail.net</option>
+												<option value="nate.com">nate.com</option>
+											</select>	
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="checkout__form__input">
+											<p>전화번호<span class="final_phone_ck">　전화번호를 입력해주세요</span></p>
+											<input type="text" name="phone" class="phone" value="<%=member.getPhone()%>">
+										</div>
+									</div>
+									<div class="col-md-6 col-md-6 col-sm-6" >
+										<div class="checkout__form__input">
+											<p>우편번호<span class="final_zipcode_ck">　우편번호를 입력해주세요</span></p>
+											<input type="text" id="zipcode" class="zipcode" name="zipcode" readonly="readonly" value="<%=member.getZipcode()%>">                                   
+										</div>
+									</div>
+									<div class="col-md-6 col-md-6 col-sm-6" >
+										<div class="checkout__form__input">
+											<p> 　</p>
+											<input type="button" class="address_button" onclick="execution_addr()" value="우편번호 검색"  >                              
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="checkout__form__input">
+											<p>주소<span class="final_addr_ck">　주소를 입력해주세요</span></p>
+											<input type="text" id="addr_1" readonly="readonly" value="">
+											<input type="text" id="addr_2" class="addr_2" readonly="readonly" value="<%=member.getAddr()%>">
+											<input type="hidden" class="addr" id="addr" name="addr" >
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div style="text-align: center">
+									<input type="button" class="site-btn" id="edit" value="수정">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
-		</form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Blog Details Section End -->
+		</div>
+	</section>
+	<!-- 프로필 폼 종료 -->
 	
 <%@ include file="../shopFooter.jsp"%>
 <%@ include file="./../../inc/footer.jsp"%>
