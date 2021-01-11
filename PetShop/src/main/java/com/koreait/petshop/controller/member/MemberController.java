@@ -113,6 +113,18 @@ public class MemberController {
 		return sb.toString();
 	}
 	
+	//마이페이지 cart(기본값) 요청처리
+	@GetMapping("/shop/member/mypage_cart")
+	public String mypageCart() {
+		return "/shop/member/mypage_cart";
+	}
+	
+	//마이페이지 계정관리 요청처리
+	@GetMapping("/shop/member/mypage_modify")
+	public String mypageModify() {
+		return "/shop/member/mypage_modify";
+	}
+	
 	// Admin페이지	
 	//회원 목록 리스트
 	@GetMapping("/admin/member/list")
