@@ -41,22 +41,22 @@ tr:nth-child(even) {
 				</tr>
 				<tr>
 					<td>권용은</td>
-					<td>담당업무</td>
+					<td>회원관리</td>
 					<td><a href="https://github.com/jenkwon92">https://github.com/jenkwon92</a></td>
 				</tr>	
 				<tr>
 					<td>손동진</td>
-					<td>담당업무</td>
+					<td>상품(등록, 수정,삭제) 관리</td>
 					<td><a href="https://github.com/sono53124">https://github.com/sono53124</a></td>
 				</tr>	
 				<tr>
 					<td>조혜</td>
-					<td>담당업무</td>
+					<td>상품목록관리</td>
 					<td><a href="https://github.com/johye45">https://github.com/johye45</a></td>
 				</tr>	
 				<tr>
 					<td>최은영</td>
-					<td>담당업무</td>
+					<td>주문, 결제관리</td>
 					<td><a href="#">#</a></td>
 				</tr>		
 			</table>
