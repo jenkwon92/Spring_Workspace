@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="SubCategory">
 
+
 <!-- 상위에 소속된 하위 가져오기 -->
 <select id="selectAllById" resultType="SubCategory" parameterType="int">
 	select * from subcategory where topcategory_id=#{topcategory_id}

@@ -1,7 +1,6 @@
 package com.koreait.petshop.model.product.repository;
 
 import java.util.List;
-import java.util.Map;
 
 import com.koreait.petshop.model.domain.Product;
 

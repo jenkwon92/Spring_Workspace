@@ -1,7 +1,6 @@
 package com.koreait.petshop.model.product.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.koreait.petshop.model.common.FileManager;
 import com.koreait.petshop.model.domain.Product;

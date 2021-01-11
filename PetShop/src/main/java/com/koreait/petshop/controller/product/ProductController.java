@@ -2,8 +2,6 @@ package com.koreait.petshop.controller.product;
 
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.koreait.petshop.model.common.FileManager;
 import com.koreait.petshop.model.domain.Product;
 import com.koreait.petshop.model.domain.SubCategory;
 import com.koreait.petshop.model.product.service.ProductService;
@@ -82,5 +79,78 @@ public class ProductController {
 			List<SubCategory> subList=subCategoryService.selectAllById(topcategory_id);
 			return subList;
 		}
+		
+		
+		/**************************************
+		 * shop페이지 구현하기
+		 * **************************************/
+		//상품 목록 보여주기
+		@RequestMapping(value="/shop/product/list", method=RequestMethod.GET)
+		public ModelAndView getShopProductList(int subcategory_id) {
+			List topList = topCategoryService.selectAll();//상품 카테고리 가져오기
+			List productList = productService.selectById(subcategory_id);
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("topList", topList);
+			mav.addObject("productList", productList);
+			mav.setViewName("shop/product/list");
+			
+			logger.debug("product.size() "+productList.size());
+			return mav;
+		}
+		
+		//상위에 소속된 모든 하위 보여주기
+		@RequestMapping(value="/shop/product/listAll", method=RequestMethod.GET)
+		public ModelAndView getShopTopProductList(int topcategory_id) {
+			List topList = topCategoryService.selectAll();//상품 카테고리 가져오기
+			List subList = subCategoryService.selectAllById(topcategory_id);
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("topList", topList);
+			mav.addObject("subList", subList);
+			mav.setViewName("shop/product/listAll");
+			
+			logger.debug("subList.size() "+subList.size());
+			return mav;
+		}
+		
+	
+		//상품상세 보기 요청 
+		@RequestMapping(value="/shop/product/detail", method=RequestMethod.GET)
+		public ModelAndView getShopProductDetail(int product_id) {
+			
+			List topList = topCategoryService.selectAll();//상품카테고리 목록	
+			Product product = productService.select(product_id);//상품 한건 가져오기
+			
+			
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("topList", topList);
+			mav.addObject("product",product);
+		
+			mav.setViewName("shop/product/detail");
+			
+			logger.debug("product_id"+product_id);
+			
+			return mav;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	 
 }

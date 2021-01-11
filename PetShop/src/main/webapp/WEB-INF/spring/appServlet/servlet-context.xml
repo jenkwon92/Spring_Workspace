@@ -42,7 +42,10 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.koreait.petshop.controller" />
+	<!-- 컨트롤러만  -->
+	<context:component-scan base-package="com.koreait.petshop" />
+	<!-- 여기는 컨트롤러만 올러야 함 -->
+	<!-- <context:component-scan base-package="com.koreait.petshop.controller" /> -->
 	
 	
 	

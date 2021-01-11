@@ -1,11 +1,8 @@
 package com.koreait.petshop.model.product.repository;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +18,6 @@ public class MybatisProductDAO implements ProductDAO{
 	//목록리스트 가져오기
 	@Override
 	public List selectAll(){
-		
 		return sqlSessionTemplate.selectList("Product.selectAll");
 		 
 	}
@@ -29,7 +25,7 @@ public class MybatisProductDAO implements ProductDAO{
 	@Override
 	public List selectById(int subcategory_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList("Product.selectBySubCategoryId", subcategory_id);
 	}
 
 	//목록 상품 한건 가져오기->상세보기

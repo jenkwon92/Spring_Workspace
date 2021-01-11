@@ -120,9 +120,9 @@ public class MemberController {
 	}
 	
 	//마이페이지 계정관리 요청처리
-	@GetMapping("/shop/member/mypage_modify")
+	@GetMapping("/shop/member/mypage_management")
 	public String mypageModify() {
-		return "/shop/member/mypage_modify";
+		return "/shop/member/mypage_management";
 	}
 	
 	// Admin페이지	

@@ -38,7 +38,7 @@
                             <ul>
                                 <li><a href="/shop/member/mypage_cart">장바구니 </a></li>
                                 <li><a href="#">주문내역 </a></li>
-                                <li><a href="/shop/member/mypage_modify">계정관리 </a></li>
+                                <li><a href="/shop/member/mypage_management">계정관리 </a></li>
                             </ul>
                         </div>
                     </div>

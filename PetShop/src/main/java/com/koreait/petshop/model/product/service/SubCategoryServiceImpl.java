@@ -3,7 +3,6 @@ package com.koreait.petshop.model.product.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.koreait.petshop.model.domain.SubCategory;
@@ -24,7 +23,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	@Override
 	public List selectAllById(int topcategory_id) {
 		
-		return subCategoryDAO.selectAllById(topcategory_id);
+		return subCategoryDAO.selectById(topcategory_id);
 	}
 
 	@Override
