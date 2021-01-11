@@ -1,0 +1,173 @@
+--------------------------------------------------------------------------오라클 테이블 스페이스 생성
+create tablespace petspace
+datafile 'C:\APP\oradata\XE\petspace.dbf'
+size 10M
+
+--------------------------------------------------------------------------오라클 유저 생성
+create user petshop
+identified by petshop
+default tablespace petspace
+quota unlimited on petspace
+
+--------------------------------------------------------------------------유저 권한 부여
+grant create session, create table, create sequence
+to petshop
+
+//상위 카테고리
+create table  topcategory(
+   topcategory_id  number primary key 
+ , name varchar(25) 
+ , rank number 
+);
+create sequence seq_topcategory
+increment by 1
+start with 1;
+
+//하위카테고리
+create table subcategory(
+  subcategory_id number primary key
+ , topcategory_id number
+ , name varchar(25)
+ , constraint fk_topcategorysubcategory  foreign key(topcategory_id) references topcategory(topcategory_id)
+);
+
+create sequence seq_subcategory
+increment by 1
+start with 1;
+
+//상품목록
+create table product(
+ product_id number primary key
+ , subcategory_id number
+ , product_name varchar(30)
+ , price number default 0
+ , detail clob
+ , filename varchar(50)
+ , constraint fk_subcategoryproduct foreign key(subcategory_id) references subcategory(subcategory_id)
+);
+create sequence seq_product
+increment by 1
+start with 1;
+
+//사이즈
+create table psize(
+   psize_id number primary key
+ , product_id number 
+ , petfit varchar(8)
+ , constraint fk_productpsize foreign key(product_id) references product(product_id) 
+);
+
+create sequence seq_psize
+increment by 1
+start with 1;
+
+
+//색상
+create table color(
+   color_id number primary key
+ , product_id number 
+ , picker varchar(20)
+ , constraint fk_productcolor foreign key(product_id) references product(product_id) 
+);
+create sequence seq_color
+increment by 1
+start with 1;
+
+//별점
+create table score(
+   score_id number primary key
+ , product_id number 
+ , star number default 0
+ , constraint fk_productscore foreign key(product_id) references product(product_id) 
+);
+create sequence seq_score
+increment by 1
+start with 1;
+
+//회원등록
+create table member(
+   member_id number primary key
+   , user_id varchar(20)   
+   , name  varchar(20)   
+   , password varchar(100)
+   , phone varchar(20)
+   , email_id varchar(20)   
+   , email_server varchar(20)
+   , zipcode    varchar(10)
+   , addr varchar(150)
+   , regdate  date default sysdate
+);
+create sequence seq_member
+increment by 1
+start with 1;
+
+//장바구니
+create table cart(
+   cart_id number primary key
+ , product_id number
+ , member_id number 
+ , quantity number default 0
+ , constraint fk_productcart foreign key(product_id) references product(product_id) 
+ , constraint fk_membercart foreign key(member_id) references member(member_id) 
+);
+create sequence seq_cart
+increment by 1
+start with 1;
+
+//이미지
+create table image(
+   image_id number primary key
+ , product_id number 
+ , filename varchar(40)
+ , constraint fk_productimage foreign key(product_id) references product(product_id) 
+);
+create sequence seq_image
+increment by 1
+start with 1;
+
+insert into topcategory (topcategory_id, name, rank) values( seq_topcategory.nextval,'옷', 1);
+insert into topcategory (topcategory_id, name, rank) values( seq_topcategory.nextval,'사료', 2);
+insert into topcategory (topcategory_id, name, rank) values( seq_topcategory.nextval,'간식', 3);
+insert into topcategory (topcategory_id, name, rank) values( seq_topcategory.nextval,'악세서리', 4);
+
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 1, '패딩');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 1, '나시');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 1, '점프수트');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 1, '원피스');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 2, '연어');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 2, '소고기');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 2, '양고기');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 2, '닭고기');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 3, '츄잉껌');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 3, '츄르');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 3, '소시지');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 3, '육포말이');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 4, '모자');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 4, '목걸이');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 4, '펫스텝');
+insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 4, '철망');
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+순서
+1. 어드민 - 상품등록, 삭제, 수정 목록
+2. index
+3. 
+
+drop table image;
+drop table cart;
+drop table score;
+drop table color;
+drop table psize;
+drop table product;
+drop table subcategory;
+drop table topcategory;
+
+drop sequence seq_image;
+drop sequence seq_cart;
+drop sequence seq_score;
+drop sequence seq_color;
+drop sequence seq_psize;
+drop sequence seq_product;
+drop sequence seq_subcategory;
+drop sequence seq_topcategory;

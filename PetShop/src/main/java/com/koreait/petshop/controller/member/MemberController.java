@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.koreait.petshop.exception.MailSendException;
+import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.common.MessageData;
@@ -114,17 +115,37 @@ public class MemberController {
 	}
 	
 	//마이페이지 cart(기본값) 요청처리
-	@GetMapping("/shop/member/mypage_cart")
+	@GetMapping("/shop/member/mypage_order")
 	public String mypageCart() {
-		return "/shop/member/mypage_cart";
+		return "/shop/member/mypage_order";
 	}
 	
-	//마이페이지 계정관리 요청처리
-	@GetMapping("/shop/member/mypage_management")
-	public String mypageModify() {
-		return "/shop/member/mypage_management";
+	//마이페이지 계정관리 요청처리 (회원 상세정보 조회)
+	@GetMapping("/shop/member/mypage_profile")
+	public ModelAndView select(HttpServletRequest request) {
+		
+		Member member = (Member)request.getSession().getAttribute("member");
+		String user_id = member.getUser_id();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user_id", user_id);
+		mav.setViewName("/shop/member/mypage_profile");
+		return mav;
 	}
 	
+	//회원정보 수정
+	@PostMapping("/shop/member/memberUpdate")
+	public String update(Member member,HttpSession session) throws MemberEditException{
+		
+		memberService.update(member);
+		return "redirect:/";
+	}
+	
+	//회원 탈퇴
+	@GetMapping("/shop/member/mypage_delete")
+	public String delete() {
+		return "/shop/member/mypage_delete";
+	} 
+
 	// Admin페이지	
 	//회원 목록 리스트
 	@GetMapping("/admin/member/list")

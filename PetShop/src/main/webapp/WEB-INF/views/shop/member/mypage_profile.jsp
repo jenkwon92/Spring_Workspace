@@ -1,4 +1,9 @@
+
+<%@page import="com.koreait.petshop.model.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Member member = (Member)request.getSession().getAttribute("member");
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -6,31 +11,32 @@
   <%@ include file="./../../inc/header.jsp" %>
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css">
-
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-$(function(){		
+$(function(){	
+	var server =  $('.email_server').val();
+	
+	if(value == $('option').val()){
+		alert($('option').val());	
+		$('option[value=domain]').attr('selected', 'selected');
+	}
+	
 	/* 비밀번호 확인 */
 	$('.pwdCheck').on("propertychange change keyup paste input", function(){
 		var pwd = $('.password').val();
 		var pwdck = $('.pwdCheck').val();
 		$('.final_pwck_ck').css('display', 'none');
 	    
-		if(pwd && pwdck !=null){
-		    if(pwd == pwdck){
-		    	$('.pwdck_1').css("display","inline-block");
-				$('.pwdck_2').css("display", "none");		
-				pwd_pwdckCheck = true;
-			} else {
-				$('.pwdck_2').css("display","inline-block");
+		if(pwd == pwdck){
+	    	$('.pwdck_1').css("display","inline-block");
+			$('.pwdck_2').css("display", "none");		
+			pwd_pwdckCheck = true;
+		} else {
+			$('.pwdck_2').css("display","inline-block");
 				$('.pwdck_1').css("display", "none");	
 				pwd_pwdckCheck = false;	
 			}
-		}else{
-			$('.pwdck_2').css("display","none");
-			$('.pwdck_1').css("display", "none");	
-			$('.final_pwck_ck').css('display', 'inline-block');
-		}
-	});
+		});
 	
 	/* 유효성 검사 통과유무 변수*/
 	var pwdCheck = false;
@@ -42,7 +48,7 @@ $(function(){
 	var zipcodeCheck = false;
 	var addrCheck = false;	 
 	
-	//회원가입 처리
+	//회원정보 수정처리
 	$("#edit").click(function(){
 		var password = $('.password').val();
 		var pwdCheck = $('.pwdCheck').val();
@@ -51,25 +57,7 @@ $(function(){
 		var phone = $('.phone').val();
 		var zipcode = $('.zipcode').val();
 		var addr = $('.addr_2').val();
-		
-// 		/* 아이디 유효성 확인 */
-// 		if(user_id == ""){
-// 			$('.final_user_id_ck').css('display', 'inline');
-// 			idCheck = false;
-// 		}else{
-// 			$('.final_user_id_ck').css('display', 'none');
-// 			idCheck = true;
-// 		}
-		
-// 		/* 이름 유효성 확인 */
-// 		if(name  == ""){
-// 			$('.final_name_ck').css('display', 'inline');
-// 			nameCheck = false;
-// 		}else{
-// 			$('.final_name_ck').css('display', 'none');
-// 			nameCheck = true;
-// 		}
-		
+			
 		/* 비밀번호 유효성 확인 */
 		if(password == ""){
 			$('.final_password_ck').css('display', 'inline');
@@ -81,10 +69,10 @@ $(function(){
 		
 		/* 비밀번호 재입력 유효성 확인 */
 		if(pwdCheck  == ""){
-			$('.final_pwdck_ck').css('display', 'inline');
+			$('.pwdck_2').css('display', 'inline');
 			pwdckCheck = false;
 		}else{
-			$('.final_pwdck_ck').css('display', 'none');
+			$('.pwdck_2').css('display', 'none');
 			pwdckCheck = true;
 		}
 		
@@ -229,7 +217,7 @@ function edit(){
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="/shop/member/mypage_cart"><i class="fa fa-home"></i> Mypage</a>
-                        <span>Account management</span>
+                        <span>Profile</span>
                     </div>
                 </div>
             </div>
@@ -249,9 +237,9 @@ function edit(){
                                 <h4>My Page</h4>
                             </div>
                             <ul>
-                                <li><a href="/shop/member/mypage_cart">장바구니 </a></li>
-                                <li><a href="#">주문내역 </a></li>
-                                <li><a href="/shop/member/mypage_management">계정관리 </a></li>
+                                <li><a href="/shop/member/mypage_cart">주문내역 </a></li>
+                                <li><a href="/shop/member/mypage_profile">계정관리 </a></li>
+                                <li><a href="/shop/member/mypage_delete">회원탈퇴 </a></li>
                             </ul>
                         </div>
                     </div>
@@ -265,17 +253,17 @@ function edit(){
 							<div class="col-lg-12">
 								<div class="checkout__form__input">
 									<p>아이디</p>
-									<input type="text" name="user_id" class="user_id" disabled/>
+									<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" disabled/>
 									<p>이름</p>
-									<input type="text" name="name" class="name" disabled/>
+									<input type="text" name="name" class="name" value="<%=member.getName() %>" disabled/>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="checkout__form__input">
 									<p>변경하실 비밀번호<span class="final_password_ck">　비밀번호를 입력해주세요</span></p>
-									<input type="password" name="password" class="password">
+									<input type="password" name="password" class="password" >
 								</div>
-							</div>	
+							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="checkout__form__input">
 									<p>비밀번호 확인
@@ -289,31 +277,33 @@ function edit(){
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="checkout__form__input">
 									<p>이메일 주소<span class="final_email_id_ck">　이메일 주소를 입력해주세요</span></p>
-									<input type="text" name="email_id" class="email_id">
+									<input type="text" name="email_id" class="email_id" value="<%=member.getEmail_id()%>">
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="checkout__form__input">
 									<p>도메인<span class="final_email_server_ck">　도메인을 선택해주세요</span></p>
-									<select name="email_server" class="email_server">
-										<option selected disabled value="select">선택</option>
-										<option value="gmail.com">gmail.com</option>
+									
+									<select name="email_server" class="email_server" value="<%=member.getEmail_server()%>">
+										<option disabled value="select">선택</option>
+										<option value="gmail.com" >gmail.com</option>
 										<option value="naver.com">naver.com</option>
 										<option value="hanmail.net">hanmail.net</option>
 										<option value="nate.com">nate.com</option>
+									
 									</select>	
 								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="checkout__form__input">
 									<p>전화번호<span class="final_phone_ck">　전화번호를 입력해주세요</span></p>
-									<input type="text" name="phone" class="phone">
+									<input type="text" name="phone" class="phone" value="<%=member.getPhone()%>">
 								</div>
 							</div>
 							<div class="col-md-6 col-md-6 col-sm-6" >
 								<div class="checkout__form__input">
 									<p>우편번호<span class="final_zipcode_ck">　우편번호를 입력해주세요</span></p>
-									<input type="text" id="zipcode" class="zipcode" name="zipcode" readonly="readonly">                                   
+									<input type="text" id="zipcode" class="zipcode" name="zipcode" readonly="readonly" value="<%=member.getZipcode()%>">                                   
 								</div>
 							</div>
 							<div class="col-md-6 col-md-6 col-sm-6" >
@@ -325,9 +315,9 @@ function edit(){
 						<div class="col-md-12">
 							<div class="checkout__form__input">
 								<p>주소<span class="final_addr_ck">　주소를 입력해주세요</span></p>
-								<input type="text" id="addr_1" readonly="readonly">
-								<input type="text" id="addr_2" class="addr_2" readonly="readonly">
-								<input type="hidden" class="addr" id="addr" name="addr" value="">
+								<input type="text" id="addr_1" readonly="readonly" value="">
+								<input type="text" id="addr_2" class="addr_2" readonly="readonly" value="<%=member.getAddr()%>">
+								<input type="hidden" class="addr" id="addr" name="addr" >
 							</div>
 						</div>
 					</div>

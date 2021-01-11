@@ -96,7 +96,7 @@ function login(){
     </div>
     <!-- 사이트 이동경로 종료 -->
 	
-	<!-- 회원 가입 폼 시작 -->
+	<!-- 로그인 폼 시작 -->
 	<section class="product spad">
 		<div class="container" >
 			<form class="checkout__form" id="login_form">
@@ -127,7 +127,7 @@ function login(){
 		</div>
 		<div id="loader" ></div>         
 	</section>
-	<!-- 회원 가입 폼 종료 -->
+	<!-- 로그인 폼 종료 -->
 	
 <%@ include file="../shopFooter.jsp"%>
 <%@ include file="./../../inc/footer.jsp"%>

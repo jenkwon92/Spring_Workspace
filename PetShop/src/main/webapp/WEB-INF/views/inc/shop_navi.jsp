@@ -103,7 +103,7 @@
                              <%if(session.getAttribute("member")==null){ %>
                             	<a href="/shop/member/registForm">Register</a>
             				<%}else{ %>
-            					<a href="/shop/member/mypage_cart">MyPage</a>
+            					<a href="/shop/member/mypage_order">MyPage</a>
         					<%} %>
                         </div>
                         <ul class="header__right__widget">

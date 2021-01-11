@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.koreait.petshop.exception.MemberDeleteException;
+import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.domain.Member;
@@ -44,24 +46,26 @@ public class MybatisMemberDAO implements MemberDAO{
 		return obj;
 	}
 	
+	//회원수정
+	public void update(Member member) throws MemberEditException{
+		int result= sqlSessionTemplate.update("Member.update", member);
+		if(result ==0 ) {
+			throw new MemberEditException("회원 정보 수정에 실패하였습니다");
+		}
+	}
+	
+	//회원탈퇴
+	public void delete(int user_id) throws MemberDeleteException{
+		int result = sqlSessionTemplate.delete("Member.delete", user_id);
+		if(result ==0 ) {
+			throw new MemberDeleteException("회원탈퇴에 실패하였습니다");
+		}
+	}
+	
 //Admin 사용영역
 
 	//회원 목록 가져오기
 	public List selectAll() {
 		return sqlSessionTemplate.selectList("Member.selectAll");
 	}
-	
-	@Override
-	public void update(Member member) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Member member) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

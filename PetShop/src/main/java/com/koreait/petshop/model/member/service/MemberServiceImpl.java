@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koreait.petshop.exception.MailSendException;
+import com.koreait.petshop.exception.MemberDeleteException;
+import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.common.MailSender;
@@ -69,6 +71,18 @@ public class MemberServiceImpl implements MemberService{
 		return obj;
 	}
 
+	//회원 정보수정
+	public void update(Member member) throws MemberEditException{
+		memberDAO.update(member);
+		
+	}
+
+	//회원탈퇴
+	public void delete(int user_id) throws MemberDeleteException{
+		memberDAO.delete(user_id);
+	}
+	
+	
 //Admin관련 영역
 	//회원 목록 
 	public List selectAll() {
@@ -76,17 +90,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
-	@Override
-	public void update(Member member) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Member member) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 	

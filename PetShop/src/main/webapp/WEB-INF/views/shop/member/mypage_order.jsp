@@ -36,9 +36,8 @@
                                 <h4>My Page</h4>
                             </div>
                             <ul>
-                                <li><a href="/shop/member/mypage_cart">장바구니 </a></li>
-                                <li><a href="#">주문내역 </a></li>
-                                <li><a href="/shop/member/mypage_management">계정관리 </a></li>
+                                <li><a href="/shop/member/mypage_order">주문내역 </a></li>
+                                <li><a href="/shop/member/mypage_profile">계정관리 </a></li>
                             </ul>
                         </div>
                     </div>
