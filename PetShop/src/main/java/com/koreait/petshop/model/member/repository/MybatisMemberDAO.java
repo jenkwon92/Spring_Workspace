@@ -55,8 +55,8 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 	
 	//회원탈퇴
-	public void delete(int user_id) throws MemberDeleteException{
-		int result = sqlSessionTemplate.delete("Member.delete", user_id);
+	public void delete(Member member) throws MemberDeleteException{
+		int result = sqlSessionTemplate.delete("Member.delete", member);
 		if(result ==0 ) {
 			throw new MemberDeleteException("회원탈퇴에 실패하였습니다");
 		}

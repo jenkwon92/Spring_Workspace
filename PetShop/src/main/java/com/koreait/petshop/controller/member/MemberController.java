@@ -1,6 +1,7 @@
 package com.koreait.petshop.controller.member;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -115,17 +117,17 @@ public class MemberController {
 		return sb.toString();
 	}
 	
-	//마이페이지 cart(기본값) 요청처리
+	//마이페이지 order(기본값) 요청처리
 	@GetMapping("/shop/member/mypage_order")
-	public String mypageCart() {
+	public String mypageOrder() {
 		return "/shop/member/mypage_order";
 	}
 	
 	//마이페이지 계정관리 요청처리 (회원 상세정보 조회)
 	@GetMapping("/shop/member/mypage_profile")
-	public ModelAndView select(HttpServletRequest request) {
+	public ModelAndView select(HttpSession session) {
 		
-		Member member = (Member)request.getSession().getAttribute("member");
+		Member member = (Member)session.getAttribute("member");
 		String user_id = member.getUser_id();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user_id", user_id);
@@ -134,20 +136,34 @@ public class MemberController {
 	}
 	
 	//회원정보 수정
-	@PostMapping("/shop/member/memberUpdate")
-	public String update(Member member,HttpSession session) throws MemberEditException{
+	@PostMapping(value="/shop/member/memberUpdate")
+	public String update(Member member) throws MemberEditException{
+//	
+//		HttpSession session=request.getSession();
+//		session.setAttribute("member", obj); //현재 클라이언트 요청과 연계된 세션에 보관
+//		
+//		logger.debug("아이디"+obj.getUser_id());
+//		logger.debug("이름"+obj.getName());
+//		logger.debug("비밀번호"+obj.getPassword());
+//		logger.debug("이메일"+obj.getEmail_id());
+//		logger.debug("이메일서버"+obj.getEmail_server());
+//		logger.debug("우편번호"+obj.getZipcode());
+//		logger.debug("주소"+obj.getAddr());
 		
-		memberService.update(member);
-		return "redirect:/";
+		
+		return "/shop/member/mypage_profile";
 	}
 	
 	//회원 탈퇴
 	@GetMapping("/shop/member/mypage_delete")
-	public ModelAndView delete(HttpServletRequest request) throws MemberDeleteException{
-		Member member = (Member)request.getSession().getAttribute("member");
-		String user_id = member.getUser_id();
+	public ModelAndView delete(HttpSession session) throws MemberDeleteException{
+		
+		String user_id =  (String)session.getAttribute("user_id");
+		String password =(String)session.getAttribute("password");
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user_id", user_id);
+		mav.addObject("password", password);
 		mav.setViewName("/shop/member/mypage_delete");
 		
 		return mav;
@@ -166,7 +182,6 @@ public class MemberController {
 		
 		return mav;
 	}
-	
 	
 	
 	//예외 핸들러 처리 (가입오류)
@@ -197,7 +212,18 @@ public class MemberController {
 	
 	//예외 핸들러 처리 (로그인 오류)
 	@ExceptionHandler(MemberNotFoundException.class)
-	public ModelAndView handleExceptio(MemberNotFoundException e) {
+	public ModelAndView handleException(MemberNotFoundException e) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", e.getMessage());
+		mav.setViewName("shop/error/result");
+	
+		return mav;
+	}
+	
+	
+	//예외 핸들러 처리 (회원정보수정 오류)
+	@ExceptionHandler(MemberEditException.class)
+	public ModelAndView handleException(MemberEditException e) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", e.getMessage());
 		mav.setViewName("shop/error/result");

@@ -7,76 +7,12 @@
 <html lang="zxx">
 
 <head>
-  <%@ include file="./../../inc/header.jsp" %>
- <meta name="viewport" content="width=device-width, initial-scale=1">
+ <%@ include file="./../../inc/header.jsp" %>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css">
 <script>
-$(function(){	
-	
-	/* 비밀번호 확인 */
-	$('.pwdCheck').on("propertychange change keyup paste input", function(){
-		var pwd = $('.password').val();
-		var pwdck = $('.pwdCheck').val();
-		$('.final_pwck_ck').css('display', 'none');
-	    
-		if(pwd == pwdck){
-	    	$('.pwdck_1').css("display","inline-block");
-			$('.pwdck_2').css("display", "none");		
-			pwd_pwdckCheck = true;
-		} else {
-			$('.pwdck_2').css("display","inline-block");
-				$('.pwdck_1').css("display", "none");	
-				pwd_pwdckCheck = false;	
-			}
-		});
-	
-	/* 유효성 검사 통과유무 변수*/
-	var pwdCheck = false;
-	var pwdckCheck = false;
-
-	
-	//회원정보 수정처리
-	$("#edit").click(function(){
-		var password = $('.password').val();
-		var pwdCheck = $('.pwdCheck').val();
-
-			
-		/* 비밀번호 유효성 확인 */
-		if(password == ""){
-			$('.final_password_ck').css('display', 'inline');
-			pwdCheck = false;
-		}else{
-			$('.final_password_ck').css('display', 'none');
-			pwdCheck = true;
-		}
-		
-		/* 비밀번호 재입력 유효성 확인 */
-		if(pwdCheck  == ""){
-			$('.pwdck_2').css('display', 'inline');
-			pwdckCheck = false;
-		}else{
-			$('.pwdck_2').css('display', 'none');
-			pwdckCheck = true;
-		}
-		
-
-		 if(pwdCheck &&pwdCheck &&pwd_pwdckCheck ){
-			//회원등록
-			delete();
-	     }  	
-		 return false;
-	});		
-});
-
 //요청이 완료되는 시점에 로딩바를 감춘다
 function delete(){
-	// 주소+ 상세주소 연결
-	var addr_1 = $('#addr_1').val();
-	var addr_2 = $('#addr_2').val();
-	
-	var addr= addr_1 + " "+addr_2;
-	document.getElementById('addr').value = addr;
-	
 	//로딩바 시작
 	$("#loader").addClass("loader"); //class 동적 적용
 	

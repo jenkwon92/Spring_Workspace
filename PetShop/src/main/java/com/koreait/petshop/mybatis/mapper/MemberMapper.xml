@@ -20,15 +20,15 @@
 	</select>
 	
 	<!-- 회원정보 수정 -->
-	<update id="update" parameterType="Member" >
+	<update id="update" parameterType="Member">
 		UPDATE member 
 		SET password=#{password}, phone=#{phone},email_id=#{email_id}, email_server=#{email_server}, zipcode=#{zipcode}, addr=#{addr}
 		WHERE user_id=#{user_id}
 	</update>
 	
 	<!-- 회원 탈퇴 -->
-	<delete id="delete" parameterType="int">
-		DELETE FROM member WHERE user_id=#{user_id}
+	<delete id="delete" parameterType="Member">
+		DELETE FROM member WHERE user_id=#{user_id} AND password=#{password}
 	</delete>
 	
 <!-- Admin 사용 영역 -->

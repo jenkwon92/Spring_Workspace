@@ -14,13 +14,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function(){	
-	var server =  $('.email_server').val();
-	
-	if(value == $('option').val()){
-		alert($('option').val());	
-		$('option[value=domain]').attr('selected', 'selected');
-	}
-	
 	/* 비밀번호 확인 */
 	$('.pwdCheck').on("propertychange change keyup paste input", function(){
 		var pwd = $('.password').val();
@@ -50,6 +43,8 @@ $(function(){
 	
 	//회원정보 수정처리
 	$("#edit").click(function(){
+		var user_id = $('.user_id').val();
+		var name = $('.name').val();
 		var password = $('.password').val();
 		var pwdCheck = $('.pwdCheck').val();
 		var email_id = $('.email_id').val();
@@ -189,7 +184,7 @@ function edit(){
 	var formData = $("#member_form").serialize(); //전부 문자열화 시킨다!!
 	
 	$.ajax({
-		url:"/shop/member/regist",
+		url:"/shop/member/memberUpdate",
 		type:"post",
 		data:formData,
 		success:function(responseData){
@@ -198,7 +193,7 @@ function edit(){
 			var json = JSON.parse(responseData);
 			if(json.result==1){
 				alert(json.msg);
-				location.href="/shop/member/thanksForm"; //추후 로그인 페이지로 보낼예정
+				location.href="/shop/member/mypage_profile"; //추후 로그인 페이지로 보낼예정
 			}else{
 				alert(json.msg);
 			}
@@ -253,15 +248,15 @@ function edit(){
 									<div class="col-lg-12">
 										<div class="checkout__form__input">
 											<p>아이디</p>
-											<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" disabled/>
+											<input type="text" name="user_id" class="user_id"  disabled value="<%=member.getUser_id() %>">
 											<p>이름</p>
-											<input type="text" name="name" class="name" value="<%=member.getName() %>" disabled/>
+											<input type="text" name="name" class="name"  disabled value="<%=member.getName() %>">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6">
 										<div class="checkout__form__input">
-											<p>변경하실 비밀번호<span class="final_password_ck">　비밀번호를 입력해주세요</span></p>
-											<input type="password" name="password" class="password" >
+											<p>변경하실 비밀번호<span class="final_password_ck" >　비밀번호를 입력해주세요</span></p>
+											<input type="password" name="password" class="password">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6">
@@ -284,11 +279,13 @@ function edit(){
 										<div class="checkout__form__input">
 											<p>도메인<span class="final_email_server_ck">　도메인을 선택해주세요</span></p>
 											<select name="email_server" class="email_server" value="<%=member.getEmail_server()%>">
+												<%
+													String[] domains = {"gmail.com","naver.com","hanmail.net","nate.com"};
+												%>
 												<option disabled value="select">선택</option>
-												<option value="gmail.com" >gmail.com</option>
-												<option value="naver.com">naver.com</option>
-												<option value="hanmail.net">hanmail.net</option>
-												<option value="nate.com">nate.com</option>
+												<%for(String domain:domains){%>
+												<option value="<%=domain %>" <%if(domain.equals(member.getEmail_server())){%>selected<%}%>><%=domain %></option>
+												<%} %>
 											</select>	
 										</div>
 									</div>

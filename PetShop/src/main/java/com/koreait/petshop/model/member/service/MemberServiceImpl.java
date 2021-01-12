@@ -74,26 +74,16 @@ public class MemberServiceImpl implements MemberService{
 	//회원 정보수정
 	public void update(Member member) throws MemberEditException{
 		memberDAO.update(member);
-		
 	}
 
 	//회원탈퇴
-	public void delete(int user_id) throws MemberDeleteException{
-		memberDAO.delete(user_id);
+	public void delete(Member member) throws MemberDeleteException{
+		memberDAO.delete(member);
 	}
-	
 	
 //Admin관련 영역
 	//회원 목록 
 	public List selectAll() {
 		return memberDAO.selectAll();
 	}
-
-	
-	
-
-	
-	
-	
-
 }
