@@ -92,8 +92,12 @@ input[type=button]:hover {
 	color:red;
 	cursor:pointer;
 }
+input[name=color]{
+	width:50px;
+	height:30px;
+	font-size:5px;
+}
 </style>
-
 <script>
 var uploadFiles=[]; //미리보기 이미지 목록 
 var psize=[] ; //유저가 선택한 사이즈를 담는 배열 
@@ -144,6 +148,8 @@ $(function(){
 	$("label").on("mouseout",function(){
 		$("label").css("background","#ca1515");
 	});	
+	
+	
 	//대표 이미지 파일명 출력
 	var fileTarget = $(".filebox .upload-hidden"); 
 	fileTarget.on("change", function(e){ // 값이 변경되면
@@ -177,6 +183,7 @@ $(function(){
 		}
 	});
 	
+	
 	//사이즈 체크박스 이벤트 구현 
 	$("input[name='size']").on("click", function(e){
 		//var ch = e.target;//이벤트 일으킨 주체컴포넌트 즉 체크박스
@@ -199,6 +206,7 @@ $(function(){
 		console.log("서버에 전송할 사이즈 배열의 구성은 ", psize);
 	});
 	
+	
 	//컬러 체크박스 이벤트
 	$("input[name='colorcheck']").on("click", function(e){
 		//alert($($("input[type='color']")[0]).val());
@@ -207,16 +215,13 @@ $(function(){
 		var ch=$("input[name='colorcheck']");
 		var len =$(ch).length; //반복문이용하려고..
 	
-		
 		color=[];//배열 초기화
 		//console.log("채우기 전 color의 길이는 ",color.length);
-		
-		
+			
 		for(var i=0;i<len;i++){
 			//만일 체크가 되어있다면, 기존 배열을 모두 지우고, 체크된 체크박스 값만 배열에 넣자!!
-			if($($(ch)[i]).is(":checked")){		
-				console.log($($("input[type='color']")[i]).val());		
-				color.push($($("input[type='color']")[i]).val());
+			if($($(ch)[i]).is(":checked")){				
+				color.push($($("input[name='color']")[i]).val());
 			}
 			//console.log(i,"번째 체크박스 상태는 ", $($(ch)[i]).is(":checked"));
 		}		
@@ -290,12 +295,14 @@ function regist(){
 	}
 	for(var i=0;i<color.length;i++){
 		console.log("color i번째 form data 추가", color[i]);
-		formData.append("color["+i+"].picker", color[i]);
+		console.log("color i번째 form data 추가", color.length);
+		formData.append("colors["+i+"].picker", color[i]);
 	}
 	/* console.log($('form [name="topcategory_id"]').val());
 	console.log($('form [name="subcategory_id"]').val());
 	console.log($('form [name="price"]').val());
 	console.log($('form [name="detail"]').val()); */
+	
 	$.ajax({
 		url:"/async/admin/product/regist",
 		data:formData,
@@ -356,17 +363,17 @@ function regist(){
 				
 				<p>
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#ccfefe">
+					<input type="text" name="color" placeholder="색상">				
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#ffffff">
+					<input type="text" name="color" placeholder="색상">				
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#000000">
+					<input type="text" name="color" placeholder="색상">			
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#fdfdfd">
+					<input type="text" name="color" placeholder="색상">			
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#0000ff">
+					<input type="text" name="color" placeholder="색상">			
 					<input type="checkbox" 	name="colorcheck">
-					<input type="color" value="#ff0000">
+					<input type="text" name="color" placeholder="색상">
 				</p>	
 				
 				<textarea name="detail">상품설명</textarea>

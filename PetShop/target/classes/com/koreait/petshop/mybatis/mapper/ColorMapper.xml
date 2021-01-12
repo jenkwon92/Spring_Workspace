@@ -9,5 +9,4 @@
 	<select id="selectByProductId" parameterType="int" resultType="Color">
 		select * from color where product_id=#{product_id}
 	</select>
-	
 </mapper>

@@ -2,76 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Product">
 
-	<!-- 상품 목록 보여주기-->
-	<resultMap id="productSubCategoryMap" type="Product" >
-		<id column="product_id"	property="product_id"/>
-		<result column="product_name" 	property="product_name"/>
-		<result column="price" 	property="price"/>
-		<result column="detail" 	property="detail"/>
-		<result column="filename" 	property="filename"/>
-		
-		<association 
-			column="subcategory_id" 
-			property="subCategory" 
-			javaType="SubCategory"
-			select="SubCategory.select"/>
-		
+	<!-- 상품 목록 보여주기 -->
+	<resultMap id="productSubCategoryMap" type="Product">
+		<id column="product_id" property="product_id" />
+		<result column="product_name" property="product_name" />
+		<result column="price" property="price" />
+		<result column="detail" property="detail" />
+		<result column="filename" property="filename" />
 	</resultMap>
-
 	<select id="selectAll" resultMap="productSubCategoryMap">
 		select * from product order by product_id desc
 	</select>
 	
-
 	<!-- 상품등록 -->
 	<insert id="insert" parameterType="Product">
-		insert into product(product_id, subcategory_id, product_name,price ,detail,filename)
-		values(seq_product.nextval, #{subCategory.subcategory_id},#{product_name},#{price},#{detail},#{filename})
-		<selectKey order="AFTER" keyProperty="product_id" resultType="int">
+		insert into product(product_id, subcategory_id, product_name,price
+		,detail,filename)
+		values(seq_product.nextval,
+		#{subCategory.subcategory_id},#{product_name},#{price},#{detail},#{filename})
+		<selectKey order="AFTER" keyProperty="product_id"
+			resultType="int">
 			select seq_product.currval as product_id from dual
 		</selectKey>
 	</insert>
-	
-	
-	<!--  상품 상세보기-->
-	<resultMap id="productDetail" type="Product" >
-		<id column="product_id"  property="product_id"/>
-		<result column="product_name" 	property="product_name"/>
-		<result column="price" 	property="price"/>
-		<result column="detail" 	property="detail"/>
-		<result column="filename" 	property="filename"/>
+
+	<!-- 상세보기 -->
+	<resultMap  id="joinPsizeColorScoreImage" 	type="Product">
+		<id column="product_id" 							property="product_id"/>
+		<result column="product_name" 				property="product_name"/>
+		<result column="price" 							property="price"/>
+		<result column="detail" 							property="detail"/>
+		<result column="filename" 						property="filename"/>
 		
-		<collection 
-		column="product_id"
-		property="psize"
-		javaType="java.util.List"
-		ofType="Psize"
-		select="Psize.selectByProductId"/>
+		<!-- <association 
+			column="product_id" 
+			property="score"
+			javaType="Score"
+			select="Score.selectByProductId"
+			/> -->
 		
+		<!-- 사이즈 -->
 		<collection 
-		column="product_id"
-		property="color"
-		javaType="java.util.List"
-		ofType="Color"
-		select="Color.selectByProductId"/>
+			column="product_id" 
+			property="psize"
+			javaType="java.util.List"
+			ofType="Psize"
+			select="Psize.selectByProductId"
+			/>
 		
+		<!-- 색상 -->
 		<collection 
-		column="product_id"
-		property="imageList"
-		javaType="java.util.List"
-		ofType="Image"
-		select="Image.selectByProductId"/>
-	</resultMap>
+			column="product_id" 
+			property="colorList"
+			javaType="java.util.List"
+			ofType="Color"
+			select="Color.selectByProductId"
+			/>
+		
+		<!-- 이미지 -->
+		<collection 
+			column="product_id" 
+			property="imageList"
+			javaType="java.util.List"
+			ofType="Image"
+			select="Image.selectByProductId"
+			/>
+		
+	</resultMap>	
 	
-	<!-- 관리자모드 상세보기 -->
-	<select id="select" resultMap="productDetail">
+	<select id="select" resultMap="joinPsizeColorScoreImage">
 		select * from product where product_id =#{product_id}
 	</select>
-	
-	<!-- 지정한 하위카테고리에 소속된 모든 상품 가져오기 -->
-	<select id="selectBySubCategoryId" parameterType="int" resultType="product">
-		select * from product where subcategory_id =#{subcategory_id}
-	</select>
-	
+
 
 </mapper>

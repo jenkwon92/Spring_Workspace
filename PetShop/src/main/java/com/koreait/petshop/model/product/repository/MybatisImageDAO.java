@@ -22,7 +22,7 @@ public class MybatisImageDAO implements ImageDAO{
 	
 	public List selectById(int product_id) {
 	
-		return null;
+		return sqlSessionTemplate.selectList("Image.selectByProductId", product_id);
 	}
 
 	
@@ -30,7 +30,6 @@ public class MybatisImageDAO implements ImageDAO{
 		
 		return null;
 	}
-
 
 	public void insert(Image image) throws ProductRegistException{
 		int result=sqlSessionTemplate.insert("Image.insert", image);

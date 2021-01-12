@@ -9,13 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.koreait.petshop.model.domain.TopCategory;
 
 @Repository
-public class MybatisTopCategoryDAO implements TopCategoryDAO {
+public class MybatisTopCategoryDAO implements TopCategoryDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	@Override
 	public List selectAll() {
-		
 		return sqlSessionTemplate.selectList("TopCategory.selectAll");
 	}
 

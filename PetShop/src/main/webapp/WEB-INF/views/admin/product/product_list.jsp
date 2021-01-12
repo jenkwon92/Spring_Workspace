@@ -69,7 +69,7 @@ $(function(){
 				<tr>
 					<td><a href="/admin/product/detail?product_id=<%=product.getProduct_id()%>"><%=num--%></td>
 					<td><img src="/resources/data/basic/<%=product.getProduct_id()%>.<%=product.getFilename()%>" width="50px"></td>
-					<td><%=product.getSubCategory().getName()%></td>
+					<td><%=product.getSubcategory_id() %></td>
 					<td><%=product.getProduct_name() %></td>
 					<td><%=product.getPrice() %></td>
 				</tr>
