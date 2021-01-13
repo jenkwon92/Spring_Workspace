@@ -75,9 +75,12 @@ public class MemberServiceImpl implements MemberService{
 	public void update(Member member) throws MemberEditException{
 		memberDAO.update(member);
 	}
+	
 
 	//회원탈퇴
 	public void delete(Member member) throws MemberDeleteException{
+		String hash =secureManager.getSecureData(member.getPassword());
+		member.setPassword(hash);
 		memberDAO.delete(member);
 	}
 	

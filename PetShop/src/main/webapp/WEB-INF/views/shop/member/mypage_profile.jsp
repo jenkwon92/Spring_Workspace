@@ -1,8 +1,9 @@
-
 <%@page import="com.koreait.petshop.model.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Member member = (Member)request.getSession().getAttribute("member");
+	
+	
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -170,6 +171,17 @@ function execution_addr(){
 
 //요청이 완료되는 시점에 로딩바를 감춘다
 function edit(){
+	
+	var user_id = $('.user_id').val();
+	var name = $('.name').val();
+	var password = $('.password').val();
+	var pwdCheck = $('.pwdCheck').val();
+	var email_id = $('.email_id').val();
+	var email_server = $('.email_server').val();
+	var phone = $('.phone').val();
+	var zipcode = $('.zipcode').val();
+	var addr = $('.addr_2').val();
+	
 	// 주소+ 상세주소 연결
 	var addr_1 = $('#addr_1').val();
 	var addr_2 = $('#addr_2').val();
@@ -248,9 +260,9 @@ function edit(){
 									<div class="col-lg-12">
 										<div class="checkout__form__input">
 											<p>아이디</p>
-											<input type="text" name="user_id" class="user_id"  disabled value="<%=member.getUser_id() %>">
+											<input type="text" name="user_id" class="user_id"  value="<%=member.getUser_id()%>" readonly>
 											<p>이름</p>
-											<input type="text" name="name" class="name"  disabled value="<%=member.getName() %>">
+											<input type="text" name="name" class="name"  value="<%=member.getName() %>" readonly> 
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6">

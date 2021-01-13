@@ -137,35 +137,58 @@ public class MemberController {
 	
 	//회원정보 수정
 	@PostMapping(value="/shop/member/memberUpdate")
-	public String update(Member member) throws MemberEditException{
-//	
-//		HttpSession session=request.getSession();
-//		session.setAttribute("member", obj); //현재 클라이언트 요청과 연계된 세션에 보관
+	@ResponseBody
+	public String update(HttpSession session) throws MemberEditException{
+	
+		Member member =(Member)session.getAttribute("member");
+		session.setAttribute("member", member); //현재 클라이언트 요청과 연계된 세션에 보관
+		
+		logger.debug("아이디"+member.getUser_id());
+		logger.debug("이름"+member.getName());
+		logger.debug("비밀번호"+member.getPassword());
+		logger.debug("이메일"+member.getEmail_id());
+		logger.debug("이메일서버"+member.getEmail_server());
+		logger.debug("우편번호"+member.getZipcode());
+		logger.debug("주소"+member.getAddr());
+		
+		memberService.update(member);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append(" \"result\":1, ");
+		sb.append(" \"msg\":\"회원가입 성공\"");
+		sb.append("}");
+		return sb.toString();
+		
+		
+		
+//		MessageData messageData = new MessageData();
+//		messageData.setResultCode(1);
+//		messageData.setMsg("회원정보가 수정되었습니다");
+//		messageData.setUrl("/shop/member/mypage_profile");
 //		
-//		logger.debug("아이디"+obj.getUser_id());
-//		logger.debug("이름"+obj.getName());
-//		logger.debug("비밀번호"+obj.getPassword());
-//		logger.debug("이메일"+obj.getEmail_id());
-//		logger.debug("이메일서버"+obj.getEmail_server());
-//		logger.debug("우편번호"+obj.getZipcode());
-//		logger.debug("주소"+obj.getAddr());
-		
-		
-		return "/shop/member/mypage_profile";
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("messageData", messageData);
+//		mav.setViewName("shop/message/shop_message");
+//		
+//		return mav;
 	}
 	
 	//회원 탈퇴
 	@GetMapping("/shop/member/mypage_delete")
-	public ModelAndView delete(HttpSession session) throws MemberDeleteException{
+	public ModelAndView delete(Member member,HttpSession session) throws MemberDeleteException{
 		
-		String user_id =  (String)session.getAttribute("user_id");
-		String password =(String)session.getAttribute("password");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("user_id", user_id);
-		mav.addObject("password", password);
-		mav.setViewName("/shop/member/mypage_delete");
-		
+		//db존재여부확인
+		memberService.delete(member);
+
+		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
+		messageData.setMsg("로그아웃 되었습니다");
+		messageData.setUrl("/");
+				
+		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
+		mav.addObject("messageData", messageData);
+				
 		return mav;
 	} 
 
@@ -228,6 +251,16 @@ public class MemberController {
 		mav.addObject("msg", e.getMessage());
 		mav.setViewName("shop/error/result");
 	
+		return mav;
+	}
+	
+	//예외 핸들러 처리 (회원탈퇴 오류)
+	@ExceptionHandler(MemberDeleteException.class)
+	public ModelAndView handleException(MemberDeleteException e) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", e.getMessage());
+		mav.setViewName("shop/error/result");
+		
 		return mav;
 	}
 }

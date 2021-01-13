@@ -14,26 +14,27 @@
 //요청이 완료되는 시점에 로딩바를 감춘다
 function delete(){
 	//로딩바 시작
-	$("#loader").addClass("loader"); //class 동적 적용
+// 	$("#loader").addClass("loader"); //class 동적 적용
 	
-	//form 태그의 파라미터들을 전송할수있는 상태로 둬야  data키값에 form 자체를 넣을 수 있다.
-	var formData = $("#member_form").serialize(); //전부 문자열화 시킨다!!
+	var user_id = $('#user_id').val();
+	var password = $('#password').val();
+	
+	var param = {"user_id":user_id, "password":password}
 	
 	$.ajax({
-		url:"/shop/member/regist",
+		async: true,
 		type:"post",
-		data:formData,
-		success:function(responseData){
-			//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
-			$("#loader").removeClass("loader"); //class 동적 제거
-			var json = JSON.parse(responseData);
-			if(json.result==1){
-				alert(json.msg);
-				location.href="/shop/member/thanksForm"; //추후 로그인 페이지로 보낼예정
-			}else{
-				alert(json.msg);
-			}
-		}
+		data: JSON.stringify(param),
+		url:"/shop/member/mypage_delete",
+		data:"text"
+		success:success: function(data) {                    
+            alert("탈퇴가 처리되었습니다.");
+            location.href="/index";
+        },
+       		 error: function(jqXHR, textStatus, errorThrown) {
+            alert("ERROR : " + textStatus + " : " + errorThrown);
+        }            
+    
 	});
 }		
 </script>
@@ -86,7 +87,7 @@ function delete(){
 										<hr>
 										<div class="checkout__form__input">
 											<p>아이디</p>
-											<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" disabled>                                   
+											<input type="text" name="user_id" class="user_id" value="<%=member.getUser_id() %>" readonly>                                   
 										</div>
 									</div>
 									<div class="col-lg-12">

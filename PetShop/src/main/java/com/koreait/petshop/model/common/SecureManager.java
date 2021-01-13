@@ -36,8 +36,8 @@ public class SecureManager {
 		
 		return sb.toString();
 	}
-	public static void main(String[] args) {
-		String result =new SecureManager().getSecureData("bananaking");
-		System.out.println(result);
-	}
+//	public static void main(String[] args) {
+//		String result =new SecureManager().getSecureData("bananaking");
+//		System.out.println(result);
+//	}
 }
