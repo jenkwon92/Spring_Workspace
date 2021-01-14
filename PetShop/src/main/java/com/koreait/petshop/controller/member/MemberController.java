@@ -158,19 +158,37 @@ public class MemberController {
 		return messageData;
 	}
 	
+	//마이페이지 회원탈퇴
+		@GetMapping("/shop/member/mypage_delete")
+		public ModelAndView mypage_delete(HttpSession session) {
+			
+			Member member = (Member)session.getAttribute("member");
+			String user_id = member.getUser_id();
+			String password = member.getPassword();
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("user_id", user_id);
+			mav.addObject("password", password);
+			mav.setViewName("/shop/member/mypage_delete");
+			return mav;
+		}
+	
 	//회원 탈퇴
-	@GetMapping("/shop/member/mypage_delete")
+	@PostMapping("/shop/member/delete")
 	@ResponseBody
-	public MessageData delete(Member member, HttpSession session) throws MemberDeleteException{
+	public ModelAndView delete(Member member, HttpSession session) throws MemberDeleteException{
 		memberService.delete(member);
 		
 		session.invalidate();
 		
 		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
 		messageData.setMsg("회원탈퇴가 완료되었습니다.");
 		messageData.setUrl("/");
 		
-		return messageData;
+		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
+		mav.addObject("messageData", messageData);
+		
+		return mav;
 	}
 
 	// Admin페이지	
@@ -187,8 +205,11 @@ public class MemberController {
 		return mav;
 	}
 	
-	
-	//예외 핸들러 처리 (가입오류)
+/*******************************************************************
+ 	예외 핸들러 처리
+*******************************************************************/
+		
+	//가입오류
 	@ExceptionHandler(MemberRegistException.class)
 	@ResponseBody
 	public String handleException(MemberRegistException e) {
@@ -202,7 +223,7 @@ public class MemberController {
 		return sb.toString();
 	}
 	
-	//예외 핸들러 처리 (메일 발송 오류)
+	//메일 발송 오류
 	@ExceptionHandler(MailSendException.class)
 	public ModelAndView handleException(MailSendException e) {
 		ModelAndView mav = new ModelAndView();
@@ -214,7 +235,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	//예외 핸들러 처리 (로그인 오류)
+	//로그인 오류
 	@ExceptionHandler(MemberNotFoundException.class)
 	public ModelAndView handleException(MemberNotFoundException e) {
 		ModelAndView mav = new ModelAndView();
@@ -225,7 +246,7 @@ public class MemberController {
 	}
 	
 	
-	//예외 핸들러 처리 (회원정보수정 오류)
+	//회원정보수정 오류
 	@ExceptionHandler(MemberEditException.class)
 	public ModelAndView handleException(MemberEditException e) {
 		ModelAndView mav = new ModelAndView();
@@ -235,7 +256,7 @@ public class MemberController {
 		return mav;
 	}
 	
-	//예외 핸들러 처리 (회원탈퇴 오류)
+	//회원탈퇴 오류
 	@ExceptionHandler(MemberDeleteException.class)
 	public ModelAndView handleException(MemberDeleteException e) {
 		ModelAndView mav = new ModelAndView();

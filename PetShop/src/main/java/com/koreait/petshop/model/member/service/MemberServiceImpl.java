@@ -11,7 +11,6 @@ import com.koreait.petshop.exception.MailSendException;
 import com.koreait.petshop.exception.MemberDeleteException;
 import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
-import com.koreait.petshop.exception.MemberPasswordFailException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.common.MailSender;
 import com.koreait.petshop.model.common.SecureManager;
@@ -81,7 +80,7 @@ public class MemberServiceImpl implements MemberService{
 	//회원탈퇴
 	public void delete(Member member) throws MemberDeleteException{
 		String hash =secureManager.getSecureData(member.getPassword());
-		
+		member.setPassword(hash); //VO에 해시값 대입
 		memberDAO.delete(member);
 	}
 	

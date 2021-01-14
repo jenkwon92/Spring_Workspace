@@ -226,7 +226,7 @@ function edit(){
 								<h4>My Page</h4>
 							</div>
 							<ul>
-								<li><a href="/shop/member/mypage_cart">주문내역 </a></li>
+								<li><a href="/shop/member/mypage_order">주문내역 </a></li>
 								<li><a href="/shop/member/mypage_profile">계정관리 </a></li>
 								<li><a href="/shop/member/mypage_delete">회원탈퇴 </a></li>
 							</ul>

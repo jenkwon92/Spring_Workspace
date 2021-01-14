@@ -11,23 +11,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css">
 <script>
-$("#delete").click(function(){
-	delete();
-}
-
-function delete(){
-	
-	var formData = $("#delete_form").serialize();
-	$.ajax({
-		url:"/shop/member/mypage_delete",
-		type:"post",
-		data:formData,
-		success:function(responseData){
-		alert(responseData.msg)
-		location.href="/";
-		}
+function memberDelete(){
+	$("#delete_form").attr({
+		action:"/shop/member/delete",
+		method:"post"
 	});
-}		
+	$("#delete_form").submit();
+}
+		
 </script>
 </head>
 
@@ -84,13 +75,13 @@ function delete(){
 									<div class="col-lg-12">
 										<div class="checkout__form__input">
 											<p>비밀번호<span>*</span></p>
-											<input type="password" name="password" >
+											<input type="password" name="password"  >
 										</div>
 									</div>                        	 	
 								</div>
 								<hr>
 								<div style="text-align: center">
-									<input type="button" class="site-btn" id="delete" value="회원탈퇴">
+									<input type="button" class="site-btn"  value="회원탈퇴" onclick="memberDelete()">
 								</div>
 							</div>
 						</div>
