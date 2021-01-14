@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.koreait.petshop.exception.MemberDeleteException;
 import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
+import com.koreait.petshop.exception.MemberPasswordFailException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.domain.Member;
 
@@ -48,11 +49,9 @@ public class MybatisMemberDAO implements MemberDAO{
 	
 	//회원수정
 	public void update(Member member) throws MemberEditException{
-		int result= sqlSessionTemplate.update("Member.update", member);
-		if(result ==0 ) {
-			throw new MemberEditException("회원 정보 수정에 실패하였습니다");
-		}
+		int result = sqlSessionTemplate.update("Member.update", member);
 	}
+		
 	
 	//회원탈퇴
 	public void delete(Member member) throws MemberDeleteException{
@@ -61,6 +60,7 @@ public class MybatisMemberDAO implements MemberDAO{
 			throw new MemberDeleteException("회원탈퇴에 실패하였습니다");
 		}
 	}
+	
 	
 //Admin 사용영역
 

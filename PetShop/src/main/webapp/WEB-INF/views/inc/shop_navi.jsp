@@ -24,10 +24,11 @@
         <div class="offcanvas__auth">
         	<%if(session.getAttribute("member")==null){ %>
             	<a href="/shop/member/loginForm">Login</a>
+             	<a href="/shop/member/registForm">Register</a>
             <%}else{ %>
             	<a href="/shop/member/logout">LogOut</a>
+            	<a href="/shop/member/mypage_order">MyPage</a>
         	<%} %>
-            <a href="/shop/member/registForm">Register</a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -97,12 +98,9 @@
                         <div class="header__right__auth">
                             <%if(session.getAttribute("member")==null){ %>
             					<a href="/shop/member/loginForm">Login</a>
-            				<%}else{ %>
-            					<a href="/shop/member/logout">LogOut</a>
-        					<%} %>
-                             <%if(session.getAttribute("member")==null){ %>
                             	<a href="/shop/member/registForm">Register</a>
             				<%}else{ %>
+            					<a href="/shop/member/logout">LogOut</a>
             					<a href="/shop/member/mypage_order">MyPage</a>
         					<%} %>
                         </div>

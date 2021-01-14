@@ -11,30 +11,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css">
 <script>
-//요청이 완료되는 시점에 로딩바를 감춘다
+$("#delete").click(function(){
+	delete();
+}
+
 function delete(){
-	//로딩바 시작
-// 	$("#loader").addClass("loader"); //class 동적 적용
 	
-	var user_id = $('#user_id').val();
-	var password = $('#password').val();
-	
-	var param = {"user_id":user_id, "password":password}
-	
+	var formData = $("#delete_form").serialize();
 	$.ajax({
-		async: true,
-		type:"post",
-		data: JSON.stringify(param),
 		url:"/shop/member/mypage_delete",
-		data:"text"
-		success:success: function(data) {                    
-            alert("탈퇴가 처리되었습니다.");
-            location.href="/index";
-        },
-       		 error: function(jqXHR, textStatus, errorThrown) {
-            alert("ERROR : " + textStatus + " : " + errorThrown);
-        }            
-    
+		type:"post",
+		data:formData,
+		success:function(responseData){
+		alert(responseData.msg)
+		location.href="/";
+		}
 	});
 }		
 </script>
@@ -76,7 +67,7 @@ function delete(){
 					</div>
 				</div>
 				<div class="col-lg-9 col-md-9">
-					<form class="checkout__form" id="login_form">
+					<form class="checkout__form" id="delete_form">
 						<div class="row" >
 							<div class="col-lg-6" style="margin:0 auto;">
 								<h5 style="text-align:center">회원 탈퇴</h5>
@@ -93,13 +84,13 @@ function delete(){
 									<div class="col-lg-12">
 										<div class="checkout__form__input">
 											<p>비밀번호<span>*</span></p>
-											<input type="password" name="password">
+											<input type="password" name="password" >
 										</div>
 									</div>                        	 	
 								</div>
 								<hr>
 								<div style="text-align: center">
-									<input type="button" class="site-btn" value="회원탈퇴" onclick="delete()">
+									<input type="button" class="site-btn" id="delete" value="회원탈퇴">
 								</div>
 							</div>
 						</div>

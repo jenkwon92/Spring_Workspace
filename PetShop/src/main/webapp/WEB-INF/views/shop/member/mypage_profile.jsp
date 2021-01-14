@@ -1,9 +1,7 @@
 <%@page import="com.koreait.petshop.model.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	Member member = (Member)request.getSession().getAttribute("member");
-	
-	
+	Member member = (Member)request.getSession().getAttribute("member");	
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -170,18 +168,7 @@ function execution_addr(){
 }
 
 //요청이 완료되는 시점에 로딩바를 감춘다
-function edit(){
-	
-	var user_id = $('.user_id').val();
-	var name = $('.name').val();
-	var password = $('.password').val();
-	var pwdCheck = $('.pwdCheck').val();
-	var email_id = $('.email_id').val();
-	var email_server = $('.email_server').val();
-	var phone = $('.phone').val();
-	var zipcode = $('.zipcode').val();
-	var addr = $('.addr_2').val();
-	
+function edit(){	
 	// 주소+ 상세주소 연결
 	var addr_1 = $('#addr_1').val();
 	var addr_2 = $('#addr_2').val();
@@ -202,13 +189,8 @@ function edit(){
 		success:function(responseData){
 			//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
 			$("#loader").removeClass("loader"); //class 동적 제거
-			var json = JSON.parse(responseData);
-			if(json.result==1){
-				alert(json.msg);
-				location.href="/shop/member/mypage_profile"; //추후 로그인 페이지로 보낼예정
-			}else{
-				alert(json.msg);
-			}
+			alert(responseData.msg)
+			location.href=responseData.url;
 		}
 	});
 }		

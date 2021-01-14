@@ -98,7 +98,7 @@ public class MemberController {
 	//회원가입 요청처리
 	@RequestMapping(value="/shop/member/regist", method=RequestMethod.POST, produces="text/html;charset=utf-8")
 	@ResponseBody
-	public String regist(Member member) {
+	public String regist(Member member){
 		logger.debug("아이디"+member.getUser_id());
 		logger.debug("이름"+member.getName());
 		logger.debug("비밀번호"+member.getPassword());
@@ -138,11 +138,7 @@ public class MemberController {
 	//회원정보 수정
 	@PostMapping(value="/shop/member/memberUpdate")
 	@ResponseBody
-	public String update(HttpSession session) throws MemberEditException{
-	
-		Member member =(Member)session.getAttribute("member");
-		session.setAttribute("member", member); //현재 클라이언트 요청과 연계된 세션에 보관
-		
+	public MessageData update(Member member, HttpSession session) throws MemberEditException{
 		logger.debug("아이디"+member.getUser_id());
 		logger.debug("이름"+member.getName());
 		logger.debug("비밀번호"+member.getPassword());
@@ -152,45 +148,30 @@ public class MemberController {
 		logger.debug("주소"+member.getAddr());
 		
 		memberService.update(member);
+		session.setAttribute("member", member);
 		
-		StringBuffer sb = new StringBuffer();
-		sb.append("{");
-		sb.append(" \"result\":1, ");
-		sb.append(" \"msg\":\"회원가입 성공\"");
-		sb.append("}");
-		return sb.toString();
+		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
+		messageData.setMsg("회원정보가 수정되었습니다.");
+		messageData.setUrl("/shop/member/mypage_profile");
 		
-		
-		
-//		MessageData messageData = new MessageData();
-//		messageData.setResultCode(1);
-//		messageData.setMsg("회원정보가 수정되었습니다");
-//		messageData.setUrl("/shop/member/mypage_profile");
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("messageData", messageData);
-//		mav.setViewName("shop/message/shop_message");
-//		
-//		return mav;
+		return messageData;
 	}
 	
 	//회원 탈퇴
 	@GetMapping("/shop/member/mypage_delete")
-	public ModelAndView delete(Member member,HttpSession session) throws MemberDeleteException{
-		
-		//db존재여부확인
+	@ResponseBody
+	public MessageData delete(Member member, HttpSession session) throws MemberDeleteException{
 		memberService.delete(member);
-
+		
+		session.invalidate();
+		
 		MessageData messageData = new MessageData();
-		messageData.setResultCode(1);
-		messageData.setMsg("로그아웃 되었습니다");
+		messageData.setMsg("회원탈퇴가 완료되었습니다.");
 		messageData.setUrl("/");
-				
-		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
-		mav.addObject("messageData", messageData);
-				
-		return mav;
-	} 
+		
+		return messageData;
+	}
 
 	// Admin페이지	
 	//회원 목록 리스트

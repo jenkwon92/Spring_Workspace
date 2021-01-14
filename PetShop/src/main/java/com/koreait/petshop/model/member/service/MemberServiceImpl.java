@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +11,7 @@ import com.koreait.petshop.exception.MailSendException;
 import com.koreait.petshop.exception.MemberDeleteException;
 import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
+import com.koreait.petshop.exception.MemberPasswordFailException;
 import com.koreait.petshop.exception.MemberRegistException;
 import com.koreait.petshop.model.common.MailSender;
 import com.koreait.petshop.model.common.SecureManager;
@@ -73,6 +72,8 @@ public class MemberServiceImpl implements MemberService{
 
 	//회원 정보수정
 	public void update(Member member) throws MemberEditException{
+		String hash =secureManager.getSecureData(member.getPassword());
+		member.setPassword(hash); //VO에 해시값 대입
 		memberDAO.update(member);
 	}
 	
@@ -80,7 +81,7 @@ public class MemberServiceImpl implements MemberService{
 	//회원탈퇴
 	public void delete(Member member) throws MemberDeleteException{
 		String hash =secureManager.getSecureData(member.getPassword());
-		member.setPassword(hash);
+		
 		memberDAO.delete(member);
 	}
 	

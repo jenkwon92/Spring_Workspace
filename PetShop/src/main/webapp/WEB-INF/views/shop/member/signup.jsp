@@ -309,10 +309,10 @@
 									<p>도메인<span class="final_email_server_ck">　도메인을 선택해주세요</span></p>
 									<select name="email_server" class="email_server">
 										<option selected disabled value="select">선택</option>
-										<option value="gmail.com">gmail.com</option>
-										<option value="naver.com">naver.com</option>
-										<option value="hanmail.net">hanmail.net</option>
-										<option value="nate.com">nate.com</option>
+										<option value="gmail.com">@ gmail.com</option>
+										<option value="naver.com">@ naver.com</option>
+										<option value="hanmail.net">@ hanmail.net</option>
+										<option value="nate.com">@ nate.com</option>
 									</select>	
 								</div>
 							</div>
