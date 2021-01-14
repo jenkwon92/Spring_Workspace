@@ -4,8 +4,110 @@
 <head>
  <%@ include file="./../../inc/header.jsp" %>
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css">
+<!-- <link rel="stylesheet" href="/resources/css/signup_style.css" type="text/css"> -->
+<style>
+/* 컨테이너 영역 padding */
+.container {
+  padding: 16px;
+  background-color: white;
+}
 
+/* 내용 영역 너비 조정 영역*/
+input[type=text], input[type=password] , .address_button{
+  width: 99%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+}
+
+select {
+	width: 100%;
+	padding: 15px;
+ 	margin: 5px 0 22px 0;
+ 	display: inline;
+  	border: 1px solid #e1e1e1;
+  	font-size: 14px;
+  	color: #666666;
+  	border-radius: 2px;
+}
+
+input[type=text]:focus, input[type=password]:focus ,select:focus , .address_button:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+.site-btn:hover {
+  background-color: #ddd;
+}
+
+/* 로딩 바 스타일 영역 */
+.loader {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	margin-top: -13px;
+	margin-left: -13px;
+	border-radius: 60px;
+ 	animation: loader 0.8s linear infinite; 
+	-webkit-animation: loader 0.8s linear infinite; 	
+}
+
+/* 사용가능한 경우*/
+.id_available, .pwdck_1{
+		color : blue;
+		display : none;
+	}
+
+/* 사용불가능한 경우 */
+.id_unavailable, .pwdck_2{
+	color : red;
+	display : none;
+}
+
+/* 유효성 체크 */
+.final_user_id_ck{
+color : red;
+display: none;
+} 
+
+.final_name_ck{
+color : red;
+display: none;
+} 
+
+.final_password_ck{
+color : red;
+display: none;
+}
+.final_pwdck_ck{
+color : red;
+display: none;
+} 
+.final_email_id_ck{
+color : red;
+display: none;
+}
+.final_email_server_ck{
+color : red;
+display: none;
+}
+.final_phone_ck{
+color : red;
+display: none;
+}
+.final_zipcode_ck{
+color : red;
+display: none;
+}
+.final_addr_ck{
+	color : red;
+	display: none;
+}
+
+</style>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
