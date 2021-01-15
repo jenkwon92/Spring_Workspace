@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Review">
+	<select id="selectAll" resultType="Review" parameterType="int">
+		<!-- select review_id , product_id, m.member_id as member_id, reviews, regdate
+		from review r member m
+		where r.member_id=m.member_id and product_id= #{product_id} -->
+		select * from review where product_id=#{product_id}
+	
+	</select>
+	
+	<select id="select" parameterType="int" resultType="Review">
+		select * from review where review_id=#{review_id}
+	</select>
+	
+	<insert id="insert" parameterType="Review">
+		insert into review(review_id, product_id, member_id, reviews)
+		values(seq_review.nextval, #{product_id},#{member_id},#{reviews})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from review where review_id=#{review_id}
+	</delete>
+	<update id="update" parameterType="Review">
+		update reveiw set reviews=#{reviews} where review_id=#{review_id} 
+	</update>
+</mapper>
