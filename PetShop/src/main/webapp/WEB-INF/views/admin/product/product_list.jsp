@@ -1,12 +1,14 @@
-<%@page import="com.koreait.petshop.model.common.Pager"%>
 <%@page import="com.koreait.petshop.model.domain.Product"%>
+<%@page import="com.koreait.petshop.model.common.Pager"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	List<Product> productList =(List)request.getAttribute("productList");
+/* 	List<Product> productList =(List)request.getAttribute("productList");
 	Pager pager = new Pager();
-	pager.init(request, productList); //페이지 처리에 대한 계산!!
-	
+	pager.init(request, productList); //페이지 처리에 대한 계산!! 
+	*/
+	Pager pager = (Pager)request.getAttribute("pager");
+	List<Product> productList=pager.getList();
 %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +55,7 @@ $(function(){
 				<tr>
 					<th>NO</th>
 					<th>이미지</th>
-					<th>카테고리명</th>
+				
 					<th>상품명</th>
 					<th>가격</th>
 				</tr>
@@ -69,7 +71,7 @@ $(function(){
 				<tr>
 					<td><a href="/admin/product/detail?product_id=<%=product.getProduct_id()%>"><%=num--%></td>
 					<td><img src="/resources/data/basic/<%=product.getProduct_id()%>.<%=product.getFilename()%>" width="50px"></td>
-					<td><%=product.getSubcategory_id() %></td>
+
 					<td><%=product.getProduct_name() %></td>
 					<td><%=product.getPrice() %></td>
 				</tr>

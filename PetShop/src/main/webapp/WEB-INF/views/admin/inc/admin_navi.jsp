@@ -61,7 +61,7 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="#">Blog</a></li>
                             <li><a href="/admin/contact">Contact</a></li>
                         </ul>
                     </nav>

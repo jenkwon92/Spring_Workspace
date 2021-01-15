@@ -6,7 +6,7 @@
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-Product product = (Product)request.getAttribute("product");
+	Product product = (Product)request.getAttribute("product");
 	List<TopCategory> topList = (List)request.getAttribute("topList");
 	List<SubCategory> subList = (List)request.getAttribute("subList");
 	SubCategory subCategory = (SubCategory)request.getAttribute("subCategory");

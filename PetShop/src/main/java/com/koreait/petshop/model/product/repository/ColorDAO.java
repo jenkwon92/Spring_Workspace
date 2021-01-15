@@ -6,7 +6,7 @@ import com.koreait.petshop.model.domain.Color;
 
 public interface ColorDAO {
 	public List selectAll();
-	public List selectById(int product_id); //fk에 소속된 목록 가져오기
+	public List selectById(int product_id); //fkżĄ źŇźÓľČ ¸ńˇĎ °ĄÁŽżŔąâ
 	public Color select(int color_id);
 	public void insert(Color color);
 	public void update(Color color);

@@ -10,5 +10,5 @@ public interface SubCategoryDAO {
 	public SubCategory select(int subcategory_id);//하위한건가져오기
 	public void insert(SubCategory subCategory);
 	public void update(SubCategory subCategory);
-	public void delete(int subcategory_id );
+	public void delete(int subCategory_id );
 }
