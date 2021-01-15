@@ -1,5 +1,6 @@
 package com.koreait.petshop.model.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.koreait.petshop.model.domain.Member;
@@ -10,6 +11,9 @@ public interface MemberService {
 	public void regist(Member member); //회원등록 및 기타필요사항 처리
 	public void update(Member member); //회원수정
 	public void delete(Member Member); //회원삭제
+	
+	public ArrayList<String> forgot_id(Member member); //회원아이디찾기
+	public void forgot_pwd(Member Member); //회원 비밀번호 찾기 
 	
 	public int duplicateCheck(String user_id);
 }

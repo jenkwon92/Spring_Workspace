@@ -148,6 +148,20 @@ insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subca
 insert into subcategory (subcategory_id, topcategory_id, name) values( seq_subcategory.nextval, 4, '철망');
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+create table article(
+article_id  number primary key 
+,article_title varchar(100)
+,article_content clob
+,article_regdate date default sysdate
+,article_image varchar(20)
+,article_hit number default 0
+);
+create sequence seq_article
+increment by 1
+start with 1;
+
+
+
 
 순서
 1. 어드민 - 상품등록, 삭제, 수정 목록

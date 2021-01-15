@@ -121,6 +121,10 @@ function login(){
 						<div style="text-align: center">
 							<input type="button" class="site-btn" value="로그인" onclick="login()">
 						</div>
+						<br>
+						<div style="text-align: center">
+							<span style="color:#666666; font-size:12px"><a href="/shop/member/forgot">아이디 찾기 | 비밀번호 찾기</a></span>						
+						</div>
 					</div>
 				</div>
 			</form>

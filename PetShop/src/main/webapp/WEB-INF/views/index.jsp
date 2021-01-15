@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-6 p-0">
                     <div class="categories__item categories__large__item set-bg"
-                    data-setbg="/resources/img/categories/category-1.jpg">
+                    data-setbg="/resources/img/categories/category-11.jpg">
                     <div class="categories__text">
                         <h2>New Product</h2>
                         <p> shop our new product</p>
@@ -24,38 +24,38 @@
             <div class="col-lg-6">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-2.jpg">
+                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-2.png">
                             <div class="categories__text">
-                                <h4>Clothing</h4>
+                                <h4 style="color:#ededed;">Clothing</h4>
                                 <p>358 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="#" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-3.jpg">
+                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-3.png">
                             <div class="categories__text">
-                                <h4>Treats</h4>
+                                <h4 style="color:#ededed;">Treats</h4>
                                 <p>273 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="#" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-4.jpg">
+                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-4.png">
                             <div class="categories__text">
-                                <h4>Training Treats</h4>
+                                <h4 style="color:#ededed;">Training Treats</h4>
                                 <p>159 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="#" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-5.jpg">
+                        <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-5.png">
                             <div class="categories__text">
-                                <h4>Accessories</h4>
+                                <h4 style="color:#ededed;">Accessories</h4>
                                 <p>792 items</p>
-                                <a href="#">Shop now</a>
+                                <a href="#" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>

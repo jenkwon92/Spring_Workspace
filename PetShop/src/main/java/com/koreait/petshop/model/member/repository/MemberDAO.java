@@ -11,5 +11,8 @@ public interface MemberDAO {
 	public void update(Member member); //회원수정
 	public void delete(Member member); //회원삭제
 	
+	public List forgot_id(Member member); //회원아이디 찾기
+	public void forgot_pwd(Member member); //회원 비밀번호 찾기 
+	
 	public int duplicateCheck(String user_id); //중복여부 체크
 }

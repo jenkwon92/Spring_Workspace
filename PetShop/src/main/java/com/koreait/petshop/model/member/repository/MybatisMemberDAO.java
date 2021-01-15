@@ -22,7 +22,14 @@ public class MybatisMemberDAO implements MemberDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-//	Shop 사용영역
+/****************************************************************************
+ 	Shop관련 영역
+ *****************************************************************************/
+	//아이디 중복 체크
+	public int duplicateCheck(String user_id) {
+		int result = sqlSessionTemplate.selectOne("Member.duplicateCheck", user_id);
+		return result;
+	}
 	
 	//회원 가입
 	public void insert(Member member) throws MemberRegistException{
@@ -32,12 +39,6 @@ public class MybatisMemberDAO implements MemberDAO{
 		} 
 	}
 	
-	//아이디 중복 체크
-	public int duplicateCheck(String user_id) {
-		int result = sqlSessionTemplate.selectOne("Member.duplicateCheck", user_id);
-		return result;
-	}
-		
 	//로그인 검증
 	public Member select(Member member) throws MemberNotFoundException{
 		Member obj = sqlSessionTemplate.selectOne("Member.select", member);
@@ -47,23 +48,39 @@ public class MybatisMemberDAO implements MemberDAO{
 		return obj;
 	}
 	
+	//회원아이디 찾기
+	public List forgot_id(Member member) {
+		logger.debug("forgot_id DAO 진입");
+		logger.debug(member.toString());
+		return sqlSessionTemplate.selectList("Member.forgot_id" , member);
+	}
+	
+	//회원비밀번호 찾기
+	public void forgot_pwd(Member member) throws MemberNotFoundException{
+		logger.debug("forgot_pwd DAO 진입");
+		int result =  sqlSessionTemplate.update("Member.forgot_pwd", member);
+	}
+		
+	
 	//회원수정
 	public void update(Member member) throws MemberEditException{
 		int result = sqlSessionTemplate.update("Member.update", member);
 	}
 		
-	
 	//회원탈퇴
 	public void delete(Member member) throws MemberDeleteException{
 		int result = sqlSessionTemplate.delete("Member.delete", member);
 		
 	}
 	
-	
-//Admin 사용영역
 
+/****************************************************************************
+ 	Admin 관련 영역
+ *****************************************************************************/
 	//회원 목록 가져오기
 	public List selectAll() {
 		return sqlSessionTemplate.selectList("Member.selectAll");
 	}
+
+
 }

@@ -86,6 +86,13 @@ ul.tabs li.current{
 <script>
 $(document).ready(function(){
 	$('ul.tabs li').click(function(){
+// 		console.log($("#m_name").val());
+// 		console.log($("#phone").val());
+		
+		$("#m_name").val(""); 
+		$("#phone").val("");  
+		$("#idList").empty();
+		
 		var tab_id = $(this).attr('data-tab');
 
 		$('ul.tabs li').removeClass('current');
@@ -93,12 +100,14 @@ $(document).ready(function(){
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
+		
+		
 	})
 })
 
 $(document).on('click','#idBtn',function(){
-	var user_name = $('#name').val();
- 	var user_phone = $('#phone').val();
+ 		var user_name = $('#m_name').val();
+  	var user_phone = $('#phone').val();
 
  	var postData = {'name' : user_name , 'phone' : user_phone};
 
@@ -113,13 +122,33 @@ $(document).on('click','#idBtn',function(){
         	var idLists = data.user_id;
         	var idLength = idLists.length
         	var idfind = idLists.substring(1, idLength-1)
-       	 		 $("#idList").append("<p>"+"회원님의 정보로 등록된 아이디는 : <br>"+idfind+" 입니다.</p>")
+       	 		 $("#idList").html("<p>"+"회원님의 정보로 등록된 아이디는 : <br>"+idfind+" 입니다.</p>")
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
         	alert('등록된 정보를 찾을 수 없습니다.' );
         }
     });
 });
+
+$(document).on('click','#pwdBtn',function(){
+		console.log($("#user_id").val());
+		console.log($("#email_id").val());
+		console.log($("#email_server").val());
+
+		var formData = $("#pwd_form").serialize(); //전부 문자열화 시킨다!!
+ 	$.ajax({
+		url:"/shop/member/forgot_pwd",
+		type:"post",
+		data:formData,
+		success:function(responseData){
+			//서버로부터 완료 응답을 받으면 로딩바 효과를 중단!!
+			$("#loader").removeClass("loader"); //class 동적 제거
+			alert(responseData.msg)
+			location.href=responseData.url;
+		}
+	});
+});
+
 
 </script>
 </head>
@@ -158,7 +187,7 @@ $(document).on('click','#idBtn',function(){
 										<div class="checkout__form__input">
 											<br>
 											<p>이름<span>*</span></p>
-											<input type="text" name="name" id="name"> 
+											<input type="text" name="name" id="m_name"> 
 										</div>                  
 										<div class="checkout__form__input">
 											<p>등록된 휴대폰<span>*</span></p>
@@ -180,13 +209,20 @@ $(document).on('click','#idBtn',function(){
 										<div class="checkout__form__input">
 											<br>
 											<p>아이디<span>*</span></p>
-											<input type="text" name="user_id" > 
+											<input type="text" name="user_id" id="user_id"> 
 											<p>등록된 이메일주소<span>*</span></p>
-											<div class="checkout__form__input">
-												<input type="text" name="email_id" > 
+											<div class="checkout__form__input" >
+												<input type="text" name="email_id" style="display: inline-block; width:55%" id="email_id">  
+												 @ <select name="email_server" style="display: inline-block; width:40%" id="email_server">
+													<option selected disabled value="select">선택</option>
+													<option value="gmail.com">gmail.com</option>
+													<option value="naver.com">naver.com</option>
+													<option value="hanmail.net">hanmail.net</option>
+													<option value="nate.com">nate.com</option>
+												</select>	
 											</div>
 										</div>
-										<div style="text-align: center">
+										<div style="text-align: center">	
 											<input type="button" class="site-btn" value="찾기"  id="pwdBtn">
 										</div>
 									</form>

@@ -1,17 +1,20 @@
 package com.koreait.petshop.controller.member;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,7 @@ import com.koreait.petshop.exception.MemberDeleteException;
 import com.koreait.petshop.exception.MemberEditException;
 import com.koreait.petshop.exception.MemberNotFoundException;
 import com.koreait.petshop.exception.MemberRegistException;
+import com.koreait.petshop.model.common.MailSender;
 import com.koreait.petshop.model.common.MessageData;
 import com.koreait.petshop.model.domain.Member;
 import com.koreait.petshop.model.member.service.MemberService;
@@ -34,51 +38,16 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private MailSender mailSender;
+
+/****************************************************************************
+ 	Shop관련 영역
+ *****************************************************************************/
 	//회원가입 폼 
 	@RequestMapping(value="/shop/member/registForm", method=RequestMethod.GET)
 	public String getRegistForm() {
 		return "/shop/member/signup";
-	}
-	
-	//회원 감사 폼
-	@RequestMapping(value="/shop/member/thanksForm")
-	public String getThanksForm() {
-		return "/shop/member/thanks";
-	}
-	
-	//로그인 폼 (네비가져올경우 ModelAndView로 변경해야함)
-	@GetMapping("/shop/member/loginForm")
-	public ModelAndView getLoginForm() {
-		//topList 요청
-		ModelAndView mav = new ModelAndView("/shop/member/signin");
-		return mav;
-	}
-	
-	//로그인 요청 처리
-	@PostMapping(value="/shop/member/login")
-	public String login(Member member,HttpServletRequest request) {
-		
-		//db존재여부확인
-		Member obj = memberService.select(member);
-		//세션에 회원정보 담아두기
-		HttpSession session=request.getSession();
-		session.setAttribute("member", obj); //현재 클라이언트 요청과 연계된 세션에 보관
-		return "redirect:/";
-	}
-	
-	//로그아웃 요청 처리
-	@GetMapping(value="/shop/member/logout")
-	public ModelAndView logout(HttpServletRequest request) {
-		request.getSession().invalidate(); //세션 무효화. 세션 효력상실
-		MessageData messageData = new MessageData();
-		messageData.setResultCode(1);
-		messageData.setMsg("로그아웃 되었습니다");
-		messageData.setUrl("/");
-		
-		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
-		mav.addObject("messageData", messageData);
-		
-		return mav;
 	}
 	
 	//아이디 중복 검사
@@ -115,6 +84,83 @@ public class MemberController {
 		sb.append(" \"msg\":\"회원가입 성공\"");
 		sb.append("}");
 		return sb.toString();
+	}
+	
+	//회원 감사 폼
+	@RequestMapping(value="/shop/member/thanksForm")
+	public String getThanksForm() {
+		return "/shop/member/thanks";
+	}
+	
+	//로그인 폼 (네비가져올경우 ModelAndView로 변경해야함)
+	@GetMapping("/shop/member/loginForm")
+	public ModelAndView getLoginForm() {
+		//topList 요청
+		ModelAndView mav = new ModelAndView("/shop/member/signin");
+		return mav;
+	}
+	
+	//로그인 요청 처리
+	@PostMapping(value="/shop/member/login")
+	public String login(Member member,HttpServletRequest request) {
+		
+		//db존재여부확인
+		Member obj = memberService.select(member);
+		//세션에 회원정보 담아두기
+		HttpSession session=request.getSession();
+		session.setAttribute("member", obj); //현재 클라이언트 요청과 연계된 세션에 보관
+		return "redirect:/";
+	}
+	
+	// 계정찾기 페이지 요청처리
+	@GetMapping("/shop/member/forgot")
+	public String forgot() {
+		return "/shop/member/forgot";
+	}
+
+	// 회원아이디찾기
+	@RequestMapping(value = "/shop/member/forgot_id", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public  String forgot_id(@ModelAttribute Member member, Model model, HttpServletResponse response) throws MemberNotFoundException {
+		System.out.println(member.toString());
+
+		ArrayList<String> idList = memberService.forgot_id(member);
+		System.out.println(idList.toString());
+		System.out.println(idList.get(0));
+		String user_id = "{\"user_id\":\"" + idList + "\"}";
+		System.out.println(user_id);
+		return user_id;
+	}
+	
+	//회원 비밀번호 찾기
+	@RequestMapping(value ="/shop/member/forgot_pwd", method = RequestMethod.POST)
+	@ResponseBody
+	public MessageData forgot_pwd(Member member) {
+		memberService.forgot_pwd(member);
+		
+		System.out.println("controller에서 보낸 member"+member);
+		
+		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
+		messageData.setMsg("등록하신 메일로 임시 비밀번호가 발급되었습니다.");
+		messageData.setUrl("/shop/member/loginForm");
+		
+		return messageData;
+	}
+
+	//로그아웃 요청 처리
+	@GetMapping(value="/shop/member/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		request.getSession().invalidate(); //세션 무효화. 세션 효력상실
+		MessageData messageData = new MessageData();
+		messageData.setResultCode(1);
+		messageData.setMsg("로그아웃 되었습니다");
+		messageData.setUrl("/");
+		
+		ModelAndView mav = new ModelAndView("/shop/error/message");
+		mav.addObject("messageData", messageData);
+		
+		return mav;
 	}
 	
 	//마이페이지 order(기본값) 요청처리
@@ -158,7 +204,7 @@ public class MemberController {
 		return messageData;
 	}
 	
-	//마이페이지 회원탈퇴
+	//마이페이지 회원탈퇴페이지 요청
 		@GetMapping("/shop/member/mypage_delete")
 		public ModelAndView mypage_delete(HttpSession session) {
 			
@@ -185,13 +231,15 @@ public class MemberController {
 		messageData.setMsg("회원탈퇴가 완료되었습니다.");
 		messageData.setUrl("/");
 		
-		ModelAndView mav = new ModelAndView("/shop/message/shop_message");
+		ModelAndView mav = new ModelAndView("/shop/error/message");
 		mav.addObject("messageData", messageData);
 		
 		return mav;
 	}
-
-	// Admin페이지	
+	
+/****************************************************************************
+ 	Admin 관련 영역
+ *****************************************************************************/	
 	//회원 목록 리스트
 	@GetMapping("/admin/member/list")
 	public ModelAndView getMemberList() {
@@ -205,9 +253,9 @@ public class MemberController {
 		return mav;
 	}
 	
-/*******************************************************************
- 	예외 핸들러 처리
-*******************************************************************/
+/****************************************************************************
+ 	예외핸들러 처리
+ *****************************************************************************/
 		
 	//가입오류
 	@ExceptionHandler(MemberRegistException.class)
