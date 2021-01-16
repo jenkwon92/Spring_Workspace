@@ -297,7 +297,7 @@ function regist(){
 	});	
 	
 	//폼데이터에 에디터의 값 추가하기!!
-	//formData.append("detail", CKEDITOR.instances["detail"].getData());
+	formData.append("detail", CKEDITOR.instances["detail"].getData());
 	for(var i=0;i<psize.length;i++){
 		console.log("psize["+i+"]번째 form data 추가", psize[i]);
 		formData.append("psize["+i+"].petfit", psize[i]);
@@ -360,32 +360,29 @@ function regist(){
 				등록할 이미지를 드래그 해주세요.
 				<div id="dragArea"></div>
 				
-				<p>
-					XS<input type="checkbox" 	name="size" value="XS">
-					S<input type="checkbox" 		name="size" value="S">
-					M<input type="checkbox" 	name="size" value="M">
-					L<input type="checkbox" 		name="size" value="L">
-					XL<input type="checkbox" 	name="size" value="XL">
-					XXL<input type="checkbox" 	name="size" value="XXL">
-				</p>
+				XS<input type="checkbox" 	name="size" value="XS">
+				S<input type="checkbox" 		name="size" value="S">
+				M<input type="checkbox" 	name="size" value="M">
+				L<input type="checkbox" 		name="size" value="L">
+				XL<input type="checkbox" 	name="size" value="XL">
+				XXL<input type="checkbox" 	name="size" value="XXL">
+				<p>*등록할 사이즈를 선택해주세요.</p>	
 				
-				<p>
-				원하는 색상을 적고 체크해주세요
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">				
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">				
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">			
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">			
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">			
-					<input type="checkbox" 	name="colorcheck">
-					<input type="text" name="color" placeholder="색상">
-				</p>	
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">				
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">				
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">			
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">			
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">			
+				<input type="checkbox" 	name="colorcheck">
+				<input type="text" name="color" placeholder="색상">
+				<p>원하는 색상을 적고 체크해주세요</p>
 				
-				<textarea name="detail">상품설명</textarea>
+				<textarea name="detail" placeholder="상품설명"></textarea>
 				<input type="button" value="상품등록" onClick="regist()">
 				<input type="button" value="목록으로" onClick="location.href='/admin/product/list'">
 			</form>
