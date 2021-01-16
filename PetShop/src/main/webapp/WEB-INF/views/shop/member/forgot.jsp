@@ -92,6 +92,9 @@ $(document).ready(function(){
 		$("#m_name").val(""); 
 		$("#phone").val("");  
 		$("#idList").empty();
+		$("#user_id").val(""); 
+		$("#email_id").val("");  
+		$("#email_server").val("select");
 		
 		var tab_id = $(this).attr('data-tab');
 
