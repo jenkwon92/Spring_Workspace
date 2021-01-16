@@ -56,7 +56,7 @@ public class PaymentController {
 		System.out.println("member" + member.getMember_id());
 		List topList = topCategoryService.selectAll();
 		List cartList = paymentService.selectCartList(member.getMember_id());
-		ModelAndView mav = new ModelAndView("shop/cart/cart_list");
+		ModelAndView mav = new ModelAndView("shop/cart/cart-list");
 		mav.addObject("topList", topList);
 		mav.addObject("cartList", cartList);
 		return mav;
