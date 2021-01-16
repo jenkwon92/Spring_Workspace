@@ -51,13 +51,13 @@ tr:nth-child(even) {
 				</tr>	
 				<tr>
 					<td>조혜</td>
-					<td>상품목록관리</td>
+					<td>상품목록, 후기관리</td>
 					<td><a href="https://github.com/johye45">https://github.com/johye45</a></td>
 				</tr>	
 				<tr>
 					<td>최은영</td>
 					<td>주문, 결제관리</td>
-					<td><a href="#">#</a></td>
+					<td><a href="https://github.com/eunyoung94">https://github.com/eunyoung94</a></td>
 				</tr>		
 			</table>
 			</p>
