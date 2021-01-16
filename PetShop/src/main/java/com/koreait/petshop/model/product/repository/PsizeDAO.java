@@ -10,5 +10,5 @@ public interface PsizeDAO {
 	public Psize select(int psize_id);
 	public void insert(Psize psize);
 	public void update(Psize psize);
-	public void delete(int psize_id);
+	public void delete(int product_id);
 }

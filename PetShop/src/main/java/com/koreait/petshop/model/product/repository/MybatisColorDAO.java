@@ -38,13 +38,13 @@ public class MybatisColorDAO implements ColorDAO{
 
 	
 	public void update(Color color) {
-	
+		sqlSessionTemplate.update("Color.update", color);
 		
 	}
 
 	
-	public void delete(int color_id) {
-			
+	public void delete(int product_id) {
+		sqlSessionTemplate.delete("Color.delete", product_id);
 	} 
 	
 }

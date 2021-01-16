@@ -4,19 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.koreait.petshop.model.domain.TopCategory" 	alias="TopCategory"/>		
-		<typeAlias type="com.koreait.petshop.model.domain.SubCategory" 	alias="SubCategory"/>		
-		<typeAlias type="com.koreait.petshop.model.domain.Product" 			alias="Product"/>		
+		<typeAlias type="com.koreait.petshop.model.domain.TopCategory" 		alias="TopCategory"/>		
+		<typeAlias type="com.koreait.petshop.model.domain.SubCategory" 		alias="SubCategory"/>		
+		<typeAlias type="com.koreait.petshop.model.domain.Product" 				alias="Product"/>		
 		<typeAlias type="com.koreait.petshop.model.domain.Image" 				alias="Image"/>		
-		<typeAlias type="com.koreait.petshop.model.domain.Color"				alias="Color"/>		
-		<typeAlias type="com.koreait.petshop.model.domain.Psize" 				alias="Psize"/>	
-		<typeAlias type="com.koreait.petshop.model.domain.Member" 			alias="Member" />
+		<typeAlias type="com.koreait.petshop.model.domain.Color"					alias="Color"/>		
+		<typeAlias type="com.koreait.petshop.model.domain.Psize" 					alias="Psize"/>	
+		<typeAlias type="com.koreait.petshop.model.domain.Member" 				alias="Member" />
 		<typeAlias type="com.koreait.petshop.model.domain.Cart" 					alias="Cart" />
-		<typeAlias type="com.koreait.petshop.model.domain.Review" 			alias="Review" />
-		<typeAlias type="com.koreait.petshop.model.domain.Score"				 alias="Score"/>
-		<typeAlias type="com.koreait.petshop.model.domain.OrderState" 		alias="OrderState"/>
-		<typeAlias type="com.koreait.petshop.model.domain.Paymethod" 		alias="Paymethod"/>
-		<typeAlias type="com.koreait.petshop.model.domain.OrderSummary" alias="OrderSummary"/>
+		<typeAlias type="com.koreait.petshop.model.domain.Review" 				alias="Review" />
+		<typeAlias type="com.koreait.petshop.model.domain.Score"				 	alias="Score"/>
+		<typeAlias type="com.koreait.petshop.model.domain.OrderState" 			alias="OrderState"/>
+		<typeAlias type="com.koreait.petshop.model.domain.Paymethod" 			alias="Paymethod"/>
+		<typeAlias type="com.koreait.petshop.model.domain.OrderSummary"		alias="OrderSummary"/>
 		<typeAlias type="com.koreait.petshop.model.domain.OrderDetail" 		alias="OrderDetail"/>
 		<typeAlias type="com.koreait.petshop.model.domain.Receiver" 			alias="Receiver"/>
 	</typeAliases>
@@ -32,7 +32,7 @@
 		<mapper resource="com/koreait/petshop/mybatis/mapper/CartMapper.xml"/>
 		<mapper resource="com/koreait/petshop/mybatis/mapper/ReviewMapper.xml"/>
 		<mapper resource="com/koreait/petshop/mybatis/mapper/ScoreMapper.xml"/>
-			<mapper resource="com/koreait/petshop/mybatis/mapper/OrderStateMapper.xml"/>
+		<mapper resource="com/koreait/petshop/mybatis/mapper/OrderStateMapper.xml"/>
 		<mapper resource="com/koreait/petshop/mybatis/mapper/PaymethodMapper.xml"/>
 		<mapper resource="com/koreait/petshop/mybatis/mapper/OrderSummaryMapper.xml"/>
 		<mapper resource="com/koreait/petshop/mybatis/mapper/OrderDetailMapper.xml"/>

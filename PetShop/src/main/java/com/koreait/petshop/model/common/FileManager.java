@@ -11,13 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-@Component //root-context에 올리기 위해,component-scan의 대상 중 하나임
+@Component /*component-scan의 대상 중 하나임..*/
 public class FileManager {
 	private static final Logger logger = LoggerFactory.getLogger(FileManager.class);
-	
 	private String saveBasicDir="/resources/data/basic";
 	private String saveAddonDir="/resources/data/addon";
-	
 	
 	public static String getExtend(String path) {
 		int lastIndex = path.lastIndexOf(".");
@@ -34,16 +32,24 @@ public class FileManager {
 	//파일 저장하기
 	public void saveFile(String realDir, MultipartFile multi) {
 		try {
-			multi.transferTo(new File(realDir));//저저장하기
-			
+			multi.transferTo(new File(realDir));
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public void delFile(File file){  
+		if( file.exists() ){
+			if(file.delete()){ 
+				System.out.println("파일삭제 성공"); 
+			}else{ 
+				System.out.println("파일삭제 실패"+file); 
+			} 
+		}else{ 
+			System.out.println("파일이 존재하지 않습니다."+file); 
+			
+		} 
+	}
 }
-

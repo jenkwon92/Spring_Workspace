@@ -53,4 +53,3 @@
 		update cart set quantity=#{quantity} where cart_id=#{cart_id}		
 	</update>					
 </mapper>
-

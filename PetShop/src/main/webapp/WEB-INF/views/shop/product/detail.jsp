@@ -1,18 +1,19 @@
-<%@page import="com.koreait.petshop.model.domain.Psize"%>
-<%@page import="com.koreait.petshop.model.domain.Color"%>
-<%@page import="com.koreait.petshop.model.common.Formatter"%>
-<%@page import="com.koreait.petshop.model.domain.Image"%>
-<%@page import="com.koreait.petshop.model.domain.Product"%>
 <%@page import="com.koreait.petshop.model.domain.Member"%>
-<%@page import="com.koreait.petshop.model.domain.Review"%>
+<%@page import="com.koreait.petshop.model.domain.Review"%> 
 <%@page import="com.koreait.petshop.model.common.Pager"%>
-
+<%@page import="com.koreait.petshop.model.domain.Image"%>
+<%@page import="com.koreait.petshop.model.domain.Color"%>
+<%@page import="com.koreait.petshop.model.domain.TopCategory"%>
+<%@page import="com.koreait.petshop.model.domain.Psize"%>
+<%@page import="com.fasterxml.jackson.core.format.DataFormatMatcher"%>
+<%@page import="com.koreait.petshop.model.common.Formatter"%>
+<%@page import="com.koreait.petshop.model.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Product product =(Product)request.getAttribute("product");
 	Pager pager =(Pager)request.getAttribute("pager");
-	List<Review> reviewList = pager.getList();
+	List<Review> reviewList = pager.getList(); 
 	
 	//	Review review = (Review)request.getAttribute("review");
 	Member member =(Member)request.getAttribute("member");//회원에 대한 정보
@@ -143,8 +144,8 @@ function addCart(){
                             
                                     <span>Available size:</span>
                                     <div class="size__btn">
-	                                    <%for(int i=0; i<product.getPsize().size();i++){ %>
-	                                    <%Psize psize = product.getPsize().get(i); %>
+	                                    <%for(int i=0; i<product.getPsizeList().size();i++){ %>
+	                                    <%Psize psize = product.getPsizeList().get(i); %>
 	                                       <input type="radio" name="psize"><%=psize.getPetfit() %>
 	                                    <%}%>
                                     </div>

@@ -1,4 +1,4 @@
-package com.koreait.petshop.model.payment.repository;
+ package com.koreait.petshop.model.payment.repository;
 
 import com.koreait.petshop.model.domain.OrderSummary;
 

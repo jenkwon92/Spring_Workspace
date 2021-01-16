@@ -41,13 +41,13 @@ public class MybatisPsizeDAO implements PsizeDAO{
 
 	
 	public void update(Psize psize) throws ProductRegistException{
-	
+		sqlSessionTemplate.update("Psize.update", psize);
 		
 	}
 
 	
-	public void delete(int psize_id) throws ProductRegistException{
-	
+	public void delete(int product_id) throws ProductRegistException{
+		int result = sqlSessionTemplate.delete("Psize.delete", product_id);
 		
 	}
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper	namespace="Psize">
+<mapper
+	namespace="Psize">
 	
 	<insert id="insert" parameterType="Psize">
 		insert into psize(psize_id, product_id, petfit) values(seq_psize.nextval, #{product_id}, #{petfit})
@@ -10,5 +11,12 @@
 		select * from psize where product_id=#{product_id}
 	</select>
 	
+	<update id="update" parameterType="Psize">
+		update psize set petfit=#{petfit} where product_id=#{product_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from psize where product_id = #{product_id}
+	</delete>
 	
 </mapper>

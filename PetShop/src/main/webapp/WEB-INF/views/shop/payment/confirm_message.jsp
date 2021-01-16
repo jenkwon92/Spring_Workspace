@@ -3,7 +3,7 @@
 <%@page import="com.koreait.petshop.model.domain.OrderSummary"%>
 <%@page import="com.koreait.petshop.model.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
+<% 
 	Member member=(Member)session.getAttribute("member");
 	OrderSummary orderSummary=(OrderSummary)request.getAttribute("orderSummary");
 %>

@@ -10,4 +10,11 @@
 		select * from color where product_id=#{product_id}
 	</select>
 	
+	<update id="update" parameterType="Color">
+		update color set picker=#{picker} where product_id=#{product_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from color where product_id=#{product_id}
+	</delete>
 </mapper>

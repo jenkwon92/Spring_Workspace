@@ -1,102 +1,83 @@
-<%@page import="com.koreait.petshop.model.domain.SubCategory"%>
-<%@page import="com.koreait.petshop.model.common.Pager"%>
-<%@page import="com.koreait.petshop.model.common.Formatter"%>
-<%@page import="com.koreait.petshop.model.domain.Product"%>
-<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
-	List<Product> productList  = (List)request.getAttribute("productList");
-	Pager pager = new Pager();
-	pager.init(request,productList);
-%>
-<!DOCTYPE html>
-<html>
-<head>
- <%@ include file="./../../inc/header.jsp" %>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-</style>	
-<script>
-</script>
-</head>
-<body>
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-7">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="/resources/img/logo.png" alt=""></a>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                    cilisis.</p>
+                    <div class="footer__payment">
+                        <a href="#"><img src="/resources/img/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="/resources/img/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="/resources/img/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="/resources/img/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="/resources/img/payment/payment-5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="footer__widget">
+                    <h6>Quick links</h6>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="footer__widget">
+                    <h6>Account</h6>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Orders Tracking</a></li>
+                        <li><a href="#">Checkout</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8">
+                <div class="footer__newslatter">
+                    <h6>NEWSLETTER</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Email">
+                        <button type="submit" class="site-btn">Subscribe</button>
+                    </form>
+                    <div class="footer__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="footer__copyright__text">
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
 
-	<%@ include file="./../../inc/shop_navi.jsp"%>
-
-	<!--상품 리스트 시작 -->
-	<section class="shop spad">
-		<div class="container">
-			<div class="row">
-			
-
-				<div class="col-lg-9 col-md-9">
-					<div class="row">
-					<%for(int i = 0; i<productList.size();i++){ %>
-					<%Product product = productList.get(i); %>
-					
-						<div class="col-lg-4 col-md-6">
-							<div class="product__item">
-								<div class="product__item__pic set-bg"
-									data-setbg="/resources/data/basic/<%=product.getProduct_id() %>.<%=product.getFilename() %>">
-									<ul class="product__hover">
-										<li><a href="/resources/data/basic/<%=product.getProduct_id() %>.<%=product.getFilename() %>"	class="image-popup">
-										<span class="arrow_expand">
-										</span>
-										</a>
-										</li>
-										<li><a href="/shop/cart/list"><span class="icon_bag_alt"></span></a></li>
-										
-									</ul>
-								</div>
-								<div class="product__item__text">
-									<h6>
-										<a href="#"></a>
-									</h6>
-									<div class="rating">
-										<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-											class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-											class="fa fa-star"></i>
-									</div>
-									<div class="product__price"></div>
-									<li><a href="/shop/product/detail?product_id=<%=product.getProduct_id()%>">상품 상세보기</a></li>
-								</div>
-							</div>
-						</div>
-					<%} %>
-					</div>
-				</div>
-			</div>
-
-			<!-- 상품 리스트 끝-->
-			
-			<div class="col-lg-12 text-center">
-				<div class="pagination__option">
-				</div>
-				<%if((pager.getFirstPage()-1)>=1){ %>
-				<a href = "/shop/product/list?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
-				<%}else{ %>
-					<a href ="javascript:alert('처음 페이지입니다.')">◀</a>
-				<%} %>
-				<%for(int i=pager.getFirstPage();i<pager.getLastPage();i++){ %>
-					<%if(i>pager.getTotalPage())break; %>
-					<a href ="/shop/product/list?currentPage=<%=i%>" <% if(pager.getCurrentPage()==i){%>class="pageNum"<%} %>>[<%=i %>]</a>
-				<%} %>
-				<%if((pager.getLastPage()+1)<pager.getTotalPage()){ %>
-					<a href = "/shop/product/list?currentPage=<%=pager.getFirstPage()-1%>">▶</a>
-				<%}else{ %>	
-					<a href ="javascript:alert('마지막 페이지입니다.')">▶</a>
-				<%} %>
-			</div>
-			
-		</div>
-		</div>
-		</div>
-		</div>
-	</section>
-
-	<%@ include file="../shopFooter.jsp"%>
-	<%@ include file="./../../inc/footer.jsp"%>
-
-</body>
-
-</html>
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->

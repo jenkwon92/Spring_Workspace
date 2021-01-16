@@ -63,7 +63,7 @@ public class PaymentController {
 	}
 
 	// 장바구니에 상품 담기 요청
-	@RequestMapping(value = "/shop/cart/regist", method = RequestMethod.POST)
+	@RequestMapping(value = "/async/shop/cart/regist", method = RequestMethod.POST)
 	@ResponseBody
 	public MessageData  registCart(Cart cart, HttpSession session) {
 		logger.debug("장바구니 등록");
@@ -217,4 +217,5 @@ public class PaymentController {
 		messageData.setMsg(e.getMessage());
 		return messageData;
 	}
+
 }

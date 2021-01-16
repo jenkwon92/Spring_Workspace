@@ -5,12 +5,12 @@ import java.util.List;
 import com.koreait.petshop.model.common.FileManager;
 import com.koreait.petshop.model.domain.Product;
 
-
 public interface ProductService {
-	public List selectAll();//모든 상품
-	public List selectById(int subcategory_id);//subcategory에 등록된 상품
-	public Product select(int product_id);//상품 한건
-	public void regist(FileManager fileManager, Product product);//insert뿐만 아니라 파일 업로드 처리 
-	public void update(Product product);
-	public void delete(int product_id);
+	public List selectAll(); //모든 상품 
+	public List selectById(int subcategory_id); //하위 카테고리에 소속된 모든 상품
+	public Product select(int product_id);
+	public void regist(FileManager fileManager,Product product); //insert하는게 아니기 때문..
+	public void update(FileManager fileManager,Product product);
+	public void delete(Product product);
+
 }

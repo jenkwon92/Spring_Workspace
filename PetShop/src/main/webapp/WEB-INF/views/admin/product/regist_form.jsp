@@ -48,6 +48,7 @@ input[type=button]:hover {
 	height:180px;
 	border:1px solid #ced4da;
 	border-radius: 5px 5px 5px 5px;
+	overflow: auto;
 }
 .filebox input[type="file"] { 
 	position: absolute; 
@@ -133,7 +134,11 @@ $(function(){
 		for(var i=0;i<fileList.length;i++){
 			uploadFiles.push(fileList[i]); //fileList안의 요소들을 일반배열에 옮겨심기 
 			//왜 심었나? 배열이 지원하는 여러 메서드들을 활용하기 위해...(ex : indexOf..)
-			preview(uploadFiles[i], i,"#dragArea"); //파일 요소 하나를 넘기기
+			if(fileList.length==1){
+				preview(fileList[i], i,"#dragArea"); //파일 요소 하나를 넘기기							
+			}else{
+				preview(uploadFiles[i], i,"#dragArea"); //파일 요소 하나를 넘기기								
+			}
 		}
 	});
 	
@@ -186,24 +191,7 @@ $(function(){
 	
 	//사이즈 체크박스 이벤트 구현 
 	$("input[name='size']").on("click", function(e){
-		//var ch = e.target;//이벤트 일으킨 주체컴포넌트 즉 체크박스
-		//체크박스의 길이 얻기 
-		var ch=$("input[name='size']");
-		var len =$(ch).length; //반복문이용하려고..
-	
-		
-		psize=[];//배열 초기화
-		console.log("채우기 전 psize의 길이는 ",psize.length);
-		
-		for(var i=0;i<len;i++){
-			//만일 체크가 되어있다면, 기존 배열을 모두 지우고, 체크된 체크박스 값만 배열에 넣자!!
-			if($($(ch)[i]).is(":checked")){
-				psize.push($($(ch)[i]).val());
-			}
-			console.log(i,"번째 체크박스 상태는 ", $($(ch)[i]).is(":checked"));
-		}		
-		console.log("psize의 길이는 ",psize.length);
-		console.log("서버에 전송할 사이즈 배열의 구성은 ", psize);
+		sizeCheck();
 	});
 	
 	
@@ -212,24 +200,45 @@ $(function(){
 		//alert($($("input[type='color']")[0]).val());
 		//var ch = e.target;//이벤트 일으킨 주체컴포넌트 즉 체크박스
 		//체크박스의 길이 얻기 
-		var ch=$("input[name='colorcheck']");
-		var len =$(ch).length; //반복문이용하려고..
-	
-		color=[];//배열 초기화
-		//console.log("채우기 전 color의 길이는 ",color.length);
-			
-		for(var i=0;i<len;i++){
-			//만일 체크가 되어있다면, 기존 배열을 모두 지우고, 체크된 체크박스 값만 배열에 넣자!!
-			if($($(ch)[i]).is(":checked")){				
-				color.push($($("input[name='color']")[i]).val());
-			}
-			//console.log(i,"번째 체크박스 상태는 ", $($(ch)[i]).is(":checked"));
-		}		
-		console.log("color의 길이는 ",color.length);
-		console.log("서버에 전송할 컬러 배열의 구성은 ", color);
+		colorCheck();
 	});
 	
 });
+function sizeCheck(){
+	//var ch = e.target;//이벤트 일으킨 주체컴포넌트 즉 체크박스
+	//체크박스의 길이 얻기 
+	var ch=$("input[name='size']");
+	var len =$(ch).length; //반복문이용하려고..
+	
+	psize=[];//배열 초기화
+	console.log("채우기 전 psize의 길이는 ",psize.length);
+	
+	for(var i=0;i<len;i++){
+		//만일 체크가 되어있다면, 기존 배열을 모두 지우고, 체크된 체크박스 값만 배열에 넣자!!
+		if($($(ch)[i]).is(":checked")){
+			psize.push($($(ch)[i]).val());
+		}
+		console.log(i,"번째 체크박스 상태는 ", $($(ch)[i]).is(":checked"));
+	}		
+	console.log("psize의 길이는 ",psize.length);
+	console.log("서버에 전송할 사이즈 배열의 구성은 ", psize);		
+}
+function colorCheck(){
+	var ch=$("input[name='colorcheck']");
+	var len =$(ch).length; //반복문이용하려고..
+	color=[];//배열 초기화
+	//console.log("채우기 전 color의 길이는 ",color.length);
+		
+	for(var i=0;i<len;i++){
+		//만일 체크가 되어있다면, 기존 배열을 모두 지우고, 체크된 체크박스 값만 배열에 넣자!!
+		if($($(ch)[i]).is(":checked")){				
+			color.push($($("input[name='color']")[i]).val());
+		}
+		//console.log(i,"번째 체크박스 상태는 ", $($(ch)[i]).is(":checked"));
+	}		
+	console.log("color의 길이는 ",color.length);
+	console.log("서버에 전송할 컬러 배열의 구성은 ", color);
+}
 function getSubList(obj){
 	//alert($(obj).val());
 	$.ajax({
@@ -288,7 +297,7 @@ function regist(){
 	});	
 	
 	//폼데이터에 에디터의 값 추가하기!!
-	formData.append("detail", CKEDITOR.instances["detail"].getData());
+	//formData.append("detail", CKEDITOR.instances["detail"].getData());
 	for(var i=0;i<psize.length;i++){
 		console.log("psize["+i+"]번째 form data 추가", psize[i]);
 		formData.append("psize["+i+"].petfit", psize[i]);
@@ -348,9 +357,8 @@ function regist(){
 					<input type="file" id="ex_filename" class="upload-hidden" name="repImg"> 
 				</div>
 				
-				<div id="dragArea">
-					<p>등록할 이미지를 드래그 해주세요.</p>
-				</div>
+				등록할 이미지를 드래그 해주세요.
+				<div id="dragArea"></div>
 				
 				<p>
 					XS<input type="checkbox" 	name="size" value="XS">
@@ -362,6 +370,7 @@ function regist(){
 				</p>
 				
 				<p>
+				원하는 색상을 적고 체크해주세요
 					<input type="checkbox" 	name="colorcheck">
 					<input type="text" name="color" placeholder="색상">				
 					<input type="checkbox" 	name="colorcheck">
