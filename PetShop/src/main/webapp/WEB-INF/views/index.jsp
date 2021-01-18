@@ -16,8 +16,8 @@
                     data-setbg="/resources/img/categories/category-11.jpg">
                     <div class="categories__text">
                         <h2>New Product</h2>
-                        <p> shop our new product</p>
-                        <a href="#">Shop now</a>
+                        <p style="color:#ededed;"> shop our new product</p>
+                        <a href="/shop/product/listAll">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -27,26 +27,26 @@
                         <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-2.png">
                             <div class="categories__text">
                                 <h4 style="color:#ededed;">Clothing</h4>
-                                <p>358 items</p>
-                                <a href="#" style="color:#ededed;">Shop now</a>
+                                <p style="color:#ededed;">358 items</p>
+                                <a href="/shop/product/list?subcategory_id=1" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                         <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-3.png">
                             <div class="categories__text">
-                                <h4 style="color:#ededed;">Treats</h4>
-                                <p>273 items</p>
-                                <a href="#" style="color:#ededed;">Shop now</a>
+                                <h4 style="color:#ededed;">Food</h4>
+                                <p style="color:#ededed;">273 items</p>
+                                <a href="/shop/product/listAll" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                         <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-4.png">
                             <div class="categories__text">
-                                <h4 style="color:#ededed;">Training Treats</h4>
-                                <p>159 items</p>
-                                <a href="#" style="color:#ededed;">Shop now</a>
+                                <h4 style="color:#ededed;">Treats</h4>
+                                <p style="color:#ededed;">159 items</p>
+                                <a href="/shop/product/listAll" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                         <div class="categories__item set-bg" data-setbg="/resources/img/categories/category-5.png">
                             <div class="categories__text">
                                 <h4 style="color:#ededed;">Accessories</h4>
-                                <p>792 items</p>
-                                <a href="#" style="color:#ededed;">Shop now</a>
+                                <p style="color:#ededed;">792 items</p>
+                                <a href="/shop/product/listAll" style="color:#ededed;">Shop now</a>
                             </div>
                         </div>
                     </div>
@@ -78,18 +78,17 @@
             <div class="col-lg-8 col-md-8">
                 <ul class="filter__controls">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".women">Womenâs</li>
-                    <li data-filter=".men">Menâs</li>
-                    <li data-filter=".kid">Kidâs</li>
+                    <li data-filter=".women">Clothing</li>
+                    <li data-filter=".men">Food</li>
+                    <li data-filter=".kid">Treats</li>
                     <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li>
                 </ul>
             </div>
         </div>
         <div class="row property__gallery">
             <div class="col-lg-3 col-md-4 col-sm-6 mix women">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-1.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-1.png">
                         <div class="label new">New</div>
                         <ul class="product__hover">
                             <li><a href="/resources/img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
@@ -112,7 +111,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mix men">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-2.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-2.png">
                         <ul class="product__hover">
                             <li><a href="/resources/img/product/product-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
@@ -134,7 +133,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mix accessories">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-3.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-3.png">
                         <div class="label stockout">out of stock</div>
                         <ul class="product__hover">
                             <li><a href="/resources/img/product/product-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
@@ -157,7 +156,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mix cosmetic">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-4.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-4.png">
                         <ul class="product__hover">
                             <li><a href="/resources/img/product/product-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
@@ -179,7 +178,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mix kid">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-5.jpg">
+                    <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-5.png">
                         <ul class="product__hover">
                             <li><a href="/resources/img/product/product-5.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
